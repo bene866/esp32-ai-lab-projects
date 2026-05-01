@@ -1,31 +1,31 @@
 # Internal Link Suggestions — 2026-04-30 — STM32 Self-Balancing Car Kit
 
-1) **Source URL:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
-   **Target URL:** `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`  
-   **Anchor text:** `STM32 self-balancing car setup + PID calibration checklist`  
-   **Placement rationale:** Add 1–2 lines under **What You Can Explore** to route kit shoppers into a step-by-step setup flow (wiring, first power-on, and safe PID tuning sequence).  
-   **Safety notes:** Keep wording as a checklist (not “tested/verified”). Don’t reference specific parameter values unless they exist in the repo/docs.
+1) **From:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
+   **To:** `/tutorials/stm32-self-balancing-car-setup/`  
+   **Anchor:** `STM32 self-balancing car setup and PID calibration checklist`  
+   **Placement rationale:** Add 1–2 sentences under **What You Can Explore** to route “PID control / IMU / encoder feedback” readers into a step-by-step setup + tuning checklist.  
+   **Safety notes:** Add only after the tutorial exists (draft or published); keep it in the body (not footer); avoid promising “perfect balance” or implying verified bench results.
 
-2) **Source URL:** `https://feigen8n.online/product/stm32-self-balancing-car-kit/`  
-   **Target URL:** `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`  
-   **Anchor text:** `PID tuning checklist for first balance`  
-   **Placement rationale:** Insert near **Notes / Disclaimer** so buyers see a safety-first tuning procedure (disable/limit motor output, tilt-hold checks, incremental gains).  
-   **Safety notes:** Avoid implying the tutorial guarantees stability; emphasize “start low / adjust gradually” language.
+2) **From:** `https://feigen8n.online/product/stm32-self-balancing-car-kit/`  
+   **To:** `/tutorials/stm32-self-balancing-car-setup/`  
+   **Anchor:** `PID tuning steps for a two-wheel balancing robot (STM32 kit)`  
+   **Placement rationale:** Place under **Key Features** (near “PID control learning project” / “IMU attitude sensing”) so buyers can jump to the practical calibration sequence before purchase.  
+   **Safety notes:** Don’t modify **Add to Cart / Buy Now** links; keep anchor descriptive (not salesy); don’t claim hardware tests were completed.
 
-3) **Source URL:** `https://feigen8n.online/tutorials/`  
-   **Target URL:** `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`  
-   **Anchor text:** `STM32 Self-Balancing Car: setup and PID calibration checklist`  
-   **Placement rationale:** Add as a new tutorial entry in the tutorials list to improve discovery from the hub page that currently lists ESP32 guides.  
-   **Safety notes:** Only add once the tutorial draft URL is live (avoid a dead link); keep title consistent with the tutorial H1.
+3) **From:** `/tutorials/stm32-self-balancing-car-setup/`  
+   **To:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
+   **Anchor:** `STM32 Self-Balancing Car Kit (parts list + photos)`  
+   **Placement rationale:** In the tutorial intro or “Before you start” section, link to the kit page for the authoritative “What’s Included” and gallery reference.  
+   **Safety notes:** Use this as a reference link (not a call-to-action block); don’t state availability/shipping details beyond what the kit page already shows.
 
-4) **Source URL:** `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`  
-   **Target URL:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
-   **Anchor text:** `STM32 Self-Balancing Car Kit (parts list + ordering)`  
-   **Placement rationale:** Place in the tutorial intro “What you need” section so readers can cross-check included modules (IMU, encoder motors, ultrasonic, wiring) before starting.  
-   **Safety notes:** Don’t claim exact board/IMU model variants unless the kit page explicitly states them.
+4) **From:** `/tutorials/stm32-self-balancing-car-setup/`  
+   **To:** `https://feigen8n.online/product/stm32-self-balancing-car-kit/`  
+   **Anchor:** `STM32 Self-Balancing Car Kit product page`  
+   **Placement rationale:** Add near the end (e.g., “Next steps / Get the kit”) for readers who landed on the tutorial first and want the purchase-oriented page.  
+   **Safety notes:** Keep it as a single contextual link (avoid repeated CTAs); do not imply discounted pricing is guaranteed.
 
-5) **Source URL:** `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`  
-   **Target URL:** `https://feigen8n.online/product/stm32-self-balancing-car-kit/`  
-   **Anchor text:** `Product page (price, stock, shipping)`  
-   **Placement rationale:** Add near the end under a short “Next steps / Get the kit” callout for readers who followed the checklist and want the same hardware set.  
-   **Safety notes:** Don’t restate price in the tutorial (it can change); link out instead to keep pricing accurate.
+5) **From:** `https://feigen8n.online/tutorials/`  
+   **To:** `/tutorials/stm32-self-balancing-car-setup/`  
+   **Anchor:** `STM32 Self-Balancing Car Setup (PID calibration checklist)`  
+   **Placement rationale:** Add as a new tutorial list entry alongside existing guides so the hub can surface the new robotics/PID topic.  
+   **Safety notes:** Insert within the main tutorial list (not header/nav/footer); ensure the target slug is correct and live to avoid a broken link.

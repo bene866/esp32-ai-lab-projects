@@ -1,142 +1,118 @@
----
-status: draft
-date: 2026-04-30
-project_key: stm32-self-balancing-car-kit
-project_name: "STM32 Self-Balancing Car Kit"
-review_required: true
-not_applied: true
-uniqueness_seed: "828dbc3eaa93cc7201a28154edc7e4ba3a64c4c0674825c8fd8ad4d23b3311db"
----
-
 # Product SEO Review — STM32 Self-Balancing Car Kit — 2026-04-30
 
-## Scope (audit-based)
-Reviewed URLs from the provided crawl:
+Status: draft recommendations (not applied)  
+Uniqueness seed: `702b44edb2766457766ca4e37645d9699f48abfc3e8cfcaef34daa0b881b6cf6`  
+Focus: **STM32 self-balancing car setup and PID calibration checklist** (planned tutorial slug: `stm32-self-balancing-car-setup`)
 
-- Tutorials hub: `https://feigen8n.online/tutorials/` (200 OK)
-- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/` (200 OK)
-- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/` (200 OK)
+## Pages reviewed (from provided audit)
+- Tutorials hub: `https://feigen8n.online/tutorials/`
+- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
 
-Focus topic for the next tutorial: **STM32 self-balancing car setup and PID calibration checklist** (planned slug: `stm32-self-balancing-car-setup`).
+## Current-page observations (audit-based)
 
----
+### Crawl / indexability basics
+- All audited URLs: `200 OK` and `ok=true`.
+- Canonical tags: present (`canonical_count = 1`) on all three audited pages.
+- JSON-LD schema: not found (`has_schema_json_ld = false`) on all three audited pages.
 
-## Audit snapshot (current state)
+### Titles & meta descriptions
+- Tutorials hub title: `Tutorials – ESP32 AI Lab`
+- Kit + Product page title (same on both): `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
+- Kit + Product meta description text (same on both): “Explore a DIY STM32 self-balancing car kit with PID control, IMU attitude sensing, encoder motor feedback, app control, and hands-on robotics learning features.”
+- **Meta description tag count**
+  - Tutorials hub: `meta_description_count = 1`
+  - Kit page: `meta_description_count = 2` (risk)
+  - Product page: `meta_description_count = 2` (risk)
 
-### Tutorials hub — `https://feigen8n.online/tutorials/`
-- Title: `Tutorials – ESP32 AI Lab`
-- Meta description: present (`count=1`)
-- Canonical: present (`count=1`)
-- Headings: H1 = `Tutorials`; H2 count = `0`
-- Images: `0` (alts missing: `0`)
-- Internal links: `21`
-- Schema JSON-LD: **not detected**
+### Headings
+- Kit + Product page H1: `STM32 Self-Balancing Car Kit`
+- Kit + Product page H2 structure: `h2_count = 9`
+  - Sample H2s: `Order This Kit`, `What You Can Explore`, `What’s Included`, `Key Features`, `Product Photo`, `Gallery`, `Notes / Disclaimer`, `Shipping & Quote`, `Need a different version?`
+- Tutorials hub: `h1 = Tutorials`, `h2_count = 0`
 
-### Kit page — `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
-- Title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-- Meta description: **duplicate present** (`count=2`)
-- Canonical: present (`count=1`)
-- Headings: H1 = `STM32 Self-Balancing Car Kit`; H2 count = `9`
-  - H2 samples: `Order This Kit`, `What You Can Explore`, `What’s Included`, `Key Features`, `Product Photo`, `Gallery`, `Notes / Disclaimer`, `Shipping & Quote`, `Need a different version?`
-- Images: `8` (alts missing: `0`)
-- Internal links: `21` (includes add-to-cart / buy-now links)
-- Schema JSON-LD: **not detected**
-- On-page excerpt includes: launch price section (regular vs current), “In stock”, and a feature/contents list (IMU, encoders, ultrasonic, app control, source code/materials).
+### Images & accessibility
+- Kit + Product: `image_count = 8`, `missing_alt_count = 0` (good)
+- Tutorials hub: `image_count = 0`
 
-### Product page — `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
-- Title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-- Meta description: **duplicate present** (`count=2`)
-- Canonical: present (`count=1`)
-- Headings and sections: match the kit page snapshot (H1 same; H2 count `9`)
-- Images: `8` (alts missing: `0`)
-- Internal links: `21`
-- Schema JSON-LD: **not detected**
+### Internal links (pattern notes)
+- Kit + Product: `internal_link_count = 21`, including repeated CTAs (`Add to Cart`, `Buy Now`) and global nav links (Home/Kits/Projects/About/Inquiry/Tutorials/Cart).
+- Tutorials hub: `internal_link_count = 21` and lists multiple tutorial links.
 
----
+## Title recommendations (kit + product pages)
+Keep the current positioning (STM32 + self-balancing + PID), but consider tightening intent and adding one concrete hardware cue (IMU / encoder) to improve relevance for robotics learners.
 
-## Key observations (what to keep / what to fix)
-1) **Meta description duplication** is the clearest technical SEO issue on both the kit and product URLs (`meta_description_count=2`).  
-2) **Kit and product pages appear highly similar** (same title, same meta description text, same H1, same H2 set, similar excerpt). Even with a canonical present, this can blur ranking signals unless each page has a distinct purpose and copy.  
-3) **Headings are already structured** on the kit/product pages (H2 sections cover ordering, features, gallery, disclaimers, shipping). That’s a solid baseline to extend with setup/tuning intent.  
-4) **No JSON-LD schema detected** across all audited pages. This is an opportunity for richer SERP understanding (Product/FAQ/Breadcrumbs).
+Options (choose one per page; ideally make kit vs product slightly different):
+1. `STM32 Self-Balancing Car Kit | PID + IMU + Encoder Feedback`
+2. `STM32 Self-Balancing Robot Car Kit | PID Control Learning Project`
+3. `STM32 Self-Balancing Car Kit | IMU Attitude + Encoder Motors + PID`
 
----
+Notes:
+- Avoid making both pages identical if both are indexable; slight differentiation helps reduce keyword cannibalization.
 
-## Title & meta recommendations (actionable edits)
+## Meta description recommendations (and the “count=2” fix)
+### Priority fix
+- Reduce to **exactly one** meta description tag on each of:
+  - `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+  - `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
 
-### Keep the current title concept, but tighten “setup intent” targeting
-Current title (both kit + product): `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
+### Fresh description drafts (pick one per page; don’t use the same copy twice)
+**Kit page suggestion**
+- “Build a two-wheel STM32 self-balancing robot and learn PID control with IMU attitude sensing, encoder motor feedback, app control, and an ultrasonic module for basic avoidance.”
 
-Recommended variants (pick one per page; do not use the same title on both):
-- **Kit page title option:** `STM32 Self-Balancing Car Kit | IMU + Encoder PID Balancing Robot`
-- **Product page title option:** `STM32 Self-Balancing Car Kit | PID Control Robotics Project (In Stock)`
+**Product page suggestion**
+- “A hands-on STM32 self-balancing car kit for robotics learning: PID tuning practice, IMU-based attitude sensing, encoder motors, ultrasonic obstacle features, plus source code and materials.”
 
-Rationale (audit-based): the pages already emphasize **PID**, **IMU attitude sensing**, and **encoder feedback** in their excerpt; differentiating titles helps reduce page-to-page duplication while staying aligned with the existing content.
-
-### Fix meta description count (must be exactly 1)
-Current: meta descriptions duplicated (`count=2`) on kit + product pages.
-
-Recommended meta description drafts (choose one per page; keep them different):
-- **Kit page meta (feature-forward):**  
-  “Build a two-wheel STM32 self-balancing robot and explore PID control with IMU attitude sensing, encoder motor feedback, app control, and an ultrasonic module. Includes chassis, wiring, and learning materials.”
-- **Product page meta (purchase-forward):**  
-  “STM32 Self-Balancing Car Kit for hands-on PID robotics learning: IMU attitude sensing, encoder motors, app control support, ultrasonic function, and included materials. See pricing, shipping quote, and what’s included.”
-
----
-
-## H1 / H2 guidance (on-page structure)
-
+## H1 / H2 guidance (focus: setup + PID calibration intent)
 ### H1
-- Keep H1 as-is: `STM32 Self-Balancing Car Kit` (already clear and consistent).
+- Keep a single H1: `STM32 Self-Balancing Car Kit` (already correct).
 
-### Add 1–2 new H2 sections to capture “setup + PID calibration checklist” intent
-The current H2 set is commerce- and overview-oriented. To support the planned tutorial topic and improve relevance, add:
+### H2 improvements (add one “practical setup” section without turning the product page into a full tutorial)
+Current H2s are mostly ecommerce navigation (order/included/features/gallery/shipping). To support the query “setup and PID calibration checklist”, add **one** high-signal section and link out to the full tutorial.
 
-- **New H2:** `Setup & PID Calibration Checklist`  
-  - Bullet checklist placeholders (no claims): IMU orientation check, encoder direction sanity check, balance target angle note, PID tuning pass order, safety notes for first lift test.
-- **New H2:** `Common Tuning Symptoms (Quick Diagnosis)`  
-  - Examples phrased as “If you see X, try Y” (no hardware verification claims).
+Recommended new H2 candidates (choose 1–2):
+- `Setup Checklist (Before First Power-On)`
+- `PID Calibration Checklist (Quick Start)`
+- `Troubleshooting: Won’t Balance / Oscillation / Drift`
 
-Placement suggestion: between `Key Features` and `Notes / Disclaimer` so it’s visible before shipping/legal sections.
+Within that section, keep content short and checklist-style, then add a prominent internal link to the planned tutorial path:
+- `/tutorials/stm32-self-balancing-car-setup/` (once it exists)
 
----
+## FAQ ideas (ready-to-write, audit-consistent)
+If you add an FAQ block, keep answers factual and aligned with the current page claims (PID, IMU, encoder feedback, app control, ultrasonic module, source code/materials, intermediate level, shipping varies).
 
-## FAQ ideas (FAQPage-ready, draft questions only)
-Use questions that match what the page already mentions (PID, IMU, encoders, app control, ultrasonic, included materials):
+Suggested FAQ questions:
+1. “How does the STM32 self-balancing car keep its balance?”
+2. “What’s the role of the IMU attitude sensing module in this kit?”
+3. “Why are encoder motors used for feedback?”
+4. “Does the kit support app control out of the box?”
+5. “What can I do with the ultrasonic module (avoidance / following)?”
+6. “Is source code included with the kit?”
+7. “What skill level is this kit designed for?”
 
-1) What should I check before the first power-on of the balancing car?  
-2) How do I confirm the IMU module orientation is correct for balancing?  
-3) What’s the simplest way to verify encoder direction and motor direction match?  
-4) In what order should I tune PID for a two-wheel self-balancing robot?  
-5) What does “app control support” mean on this kit page?  
-6) How is the ultrasonic module used (avoidance / following) and when should I enable it?  
-7) What’s included in the box (and what’s not)?  
-8) Where do I request a shipping quote or a different version?
+## Schema recommendations (JSON-LD)
+Schema is currently missing on all audited pages. Add JSON-LD to improve eligibility for rich results and to clarify page intent.
 
----
+Recommended schema types:
+- `Product` on kit + product pages (name, description, images, brand/site name, and **offers that match the live on-page price/availability**).
+- `FAQPage` only if an on-page FAQ section is published.
+- `BreadcrumbList` to reinforce site structure (Home → Kits → STM32 Self-Balancing Car Kit, etc.).
+- Optional (site-wide): `WebSite` (and search action if relevant to your theme setup).
 
-## Schema recommendations (JSON-LD to add)
-Audit shows `has_schema_json_ld: false` on all reviewed URLs.
+## Internal linking recommendations (minimal, ecommerce-friendly)
+- From kit + product pages: add one contextual link near the “What You Can Explore” or “Notes / Disclaimer” area pointing to `/tutorials/stm32-self-balancing-car-setup/` with an anchor like:
+  - “STM32 self-balancing car setup & PID calibration checklist”
+- From the new tutorial (once drafted): link back to the kit page (`/kits/stm32-self-balancing-car-kit/`) and product page (`/product/stm32-self-balancing-car-kit/`) with clear “Buy / parts list / what’s included” anchors.
 
-Suggested schema types:
-- **Product** (on kit + product pages): include name, page URL, and a concise description aligned with the excerpt (PID, IMU, encoders, ultrasonic, learning materials).  
-- **FAQPage** (on whichever page gets the FAQ section).  
-- **BreadcrumbList** (sitewide pattern, if available) for clearer hierarchy between Tutorials / Kits / Products.  
-- **WebSite / Organization** (sitewide, if not already present elsewhere) to standardize brand signals.
+## Publishing risks to flag before pushing changes
+- **Duplicate meta description tags** (`meta_description_count = 2`) on both kit and product pages can cause inconsistent snippets and is a straightforward technical SEO fix.
+- **Near-duplicate content risk**: kit and product pages share the same title and meta description (and appear structurally similar). If both are indexable, they may compete for the same queries; differentiate intent or ensure the canonical strategy is deliberate.
+- **No JSON-LD**: missing structured data reduces the chance of enhanced SERP features (Product/FAQ rich results).
+- **CTA repetition** (multiple `Add to Cart` / `Buy Now` links): not inherently bad, but keep an eye on UX clutter and ensure the primary informational path (setup/PID) is easy to find without scrolling past repeated purchase blocks.
 
----
-
-## Internal linking (small changes with clear intent)
-- Add a single “build guide” style link from the kit/product pages to the future tutorial URL once it exists:  
-  - Target: `/tutorials/stm32-self-balancing-car-setup/`  
-  - Suggested anchor: `STM32 self-balancing car setup and PID calibration checklist`
-- On `https://feigen8n.online/tutorials/`, add an entry pointing to the new tutorial once published (the hub already has 21 internal links and lists other guides, but has no H2 sections; a small “Robotics / Control” grouping could justify new subheadings later).
-
----
-
-## Publishing risks & review checklist (before applying)
-- **Duplicate meta descriptions (count=2)**: fix first; it’s a concrete, audit-confirmed issue.  
-- **High similarity between kit and product pages**: avoid using identical titles/meta on both; consider giving each page a distinct role (overview vs purchase vs setup help).  
-- **Don’t over-promise**: the excerpt mentions “source code and learning materials” and “app control support”; ensure any added copy stays factual and doesn’t imply verified performance or testing.  
-- **Schema accuracy**: only encode claims that are already present on-page (PID, IMU, encoders, ultrasonic, included materials, price language if shown).  
-- **Tutorial dependency**: don’t add internal links to `/tutorials/stm32-self-balancing-car-setup/` until the tutorial draft exists, to avoid dead links.
+## Recommended change set (fastest wins first)
+1. Fix meta description duplication (ensure exactly one per page).
+2. Add JSON-LD `Product` schema (and `BreadcrumbList`).
+3. Add a short “Setup/PID checklist” H2 section + link to the planned tutorial.
+4. Publish an FAQ block + `FAQPage` schema (only if FAQ is live).
+5. Differentiate kit vs product title/meta to reduce overlap.
