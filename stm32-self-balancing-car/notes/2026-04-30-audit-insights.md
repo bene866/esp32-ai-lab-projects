@@ -1,40 +1,65 @@
 # SEO Audit Report — STM32 Self-Balancing Car Kit — 2026-04-30
 
-## Scope (URLs audited)
-- Tutorials hub: `https://feigen8n.online/tutorials/`
-- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
-- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
+## Scope and inputs
+This report uses the provided audit JSON for three URLs and the focus project brief for “STM32 self-balancing car setup and PID calibration checklist.” The audited URLs are:
+- `https://feigen8n.online/tutorials/`
+- `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+- `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
 
-## Crawlability & indexability
-All three audited URLs returned a successful HTML response with `status=200` and `ok=true`, which means they are reachable for crawlers at the time of the audit. Each audited page reports `canonical_count=1`, which is a positive signal for consolidating indexing to a preferred URL. The audit input does not include robots directives, noindex tags, sitemap references, or redirect chains, so those indexability factors cannot be confirmed in this report.
+## Crawl status and indexability signals
+All three audited pages returned `200 OK` with `ok=true`, which indicates they are reachable by a crawler and not blocked by an obvious server-side error. Each page shows `canonical_count: 1`, which is a positive indexability signal because it suggests a single canonical URL is declared per page. The audit does not include robots directives, sitemap coverage, or `noindex` checks, so those aspects cannot be verified from the provided context.
 
-## Title tags & meta descriptions
-The tutorials hub uses the title “Tutorials – ESP32 AI Lab” and has exactly one meta description (`meta_description_count=1`). The meta description text appears truncated in the audit excerpt, which suggests it may be longer than ideal for search snippets even though it is present. Both the kit page and the product page use the same title, “STM32 Self-Balancing Car Kit | PID Control Robotics Project,” and both pages also use the same meta description text describing PID control, IMU sensing, encoder feedback, and app control (`meta_description_count=1` on each). Identical titles and identical meta descriptions across two indexable pages increase the risk of duplicate snippet behavior and unclear page intent in search results, even if both pages are valid and useful.
+## Title and meta description
+- Tutorials hub (`/tutorials/`):
+  - Title: “Tutorials – ESP32 AI Lab”
+  - Meta description count: `1`
+  - The meta description excerpt is truncated in the audit output, which suggests it may be long or auto-generated, but its full length cannot be confirmed here.
+- Kit and product pages:
+  - Both pages share the same title: “STM32 Self-Balancing Car Kit | PID Control Robotics Project.”
+  - Both pages share the same meta description text about a DIY STM32 self-balancing car kit with PID, IMU, encoder feedback, and app control.
+  - Having identical title and meta description across two separate URLs can reduce SERP differentiation and may weaken click-through performance when both pages are eligible to rank.
 
-## Headings & on-page structure
-The tutorials hub has a single H1 (“Tutorials”) and reports `h2_count=0`, which means there are no H2 subtopics to help organize the page for scanning users and search engines. The kit page has an H1 (“STM32 Self-Balancing Car Kit”) and a strong subheading structure with `h2_count=11`, including sections like “Related setup guides,” “What You Can Explore,” “What’s Included,” “Key Features,” and “Shipping & Quote.” The product page mirrors the kit page with the same H1 and the same H2 count (`h2_count=11`), which supports readability but also reinforces that the two pages are structurally very similar.
+## Headings and page structure
+- Tutorials hub:
+  - H1: “Tutorials”
+  - H2 count: `0`
+  - The page excerpt shows a list of guides (including the STM32 self-balancing car checklist), but the lack of H2 sections can reduce scannability and limit keyword-relevant subtopics on the hub page.
+- Kit and product pages:
+  - H1: “STM32 Self-Balancing Car Kit”
+  - H2 count: `11`
+  - H2 samples include “Related setup guides” and “STM32 self-balancing car setup and PID calibration checklist,” which aligns well with the stated search intent for setup, IMU checks, motor direction, and PID tuning.
 
-## Content depth & intent match
-The tutorials hub excerpt indicates it functions as a directory for multiple guides, including the specific STM32 checklist tutorial (“STM32 self-balancing car setup and PID calibration checklist”). The kit and product page excerpts contain both commercial and educational content, including “Order This Kit,” pricing context (regular price and launch price wording), “In stock,” and a “Related setup guides” block that explains the checklist-style setup approach and warns that kit revisions vary. This mixed content supports the stated search intent (“setup, IMU checks, motor direction, PID tuning checklist”) because it provides a next step for learners instead of stopping at a purchase prompt.
+## Content depth and intent match
+The kit/product excerpts describe a hands-on learning kit centered on PID control, IMU attitude sensing, encoder motor feedback, and embedded robotics experiments. The “Related setup guides” section introduces the checklist-style tutorial and includes an explicit caution that kit contents and firmware vary by seller and revision, which is helpful for safety and expectation-setting. The excerpt indicates a “Read setup guide” call to action exists, but the audit does not include a crawl of the tutorial page itself, so the tutorial’s on-page completeness, keyword coverage, and indexability cannot be confirmed from the provided data.
 
-## Images & alt text
-The tutorials hub reports `image_count=0`, which means it has no images to carry visual affordances, preview cues, or image search entry points. The kit page reports `image_count=8` and the product page reports `image_count=8`, and both pages report `missing_alt_count=0`, which indicates alt text coverage is complete for the images that exist. The audit does not include image file sizes or performance metrics, so the impact of images on page speed cannot be evaluated here.
+The tutorials hub excerpt includes multiple guide titles and a short statement that the guides focus on wiring checks, setup flow, validation steps, and safe next actions. The hub page has `image_count: 0`, which can be acceptable for a directory page, but it may limit visual engagement and reduce opportunities for image-based internal linking if thumbnails are desired.
 
-## Internal linking & navigation
-Internal navigation is present across the audited pages, including links to core sections such as Home, Kits, Projects, About, Contact/Inquiry, Tutorials, and Cart. The tutorials hub reports `internal_link_count=23` and includes a direct link to `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/` with the anchor “STM32 self-balancing car setup and PID calibration checklist.” The kit and product pages report `internal_link_count=22` each and include transactional links such as “Add to Cart” and “Buy Now,” plus a “Related setup guides” section that routes users to the setup checklist. This creates a reasonable loop between discovery (tutorial index), education (tutorial), and conversion (kit/product), but the tutorial index page currently lacks subheadings that could make those pathways more explicit.
+## Images and alt text
+- Tutorials hub: `image_count: 0`, `missing_alt_count: 0`.
+- Kit and product pages: `image_count: 8`, `missing_alt_count: 0`.
+The kit/product pages appear to have consistent alt coverage (no missing alt attributes reported), which is a positive accessibility and image SEO signal. The audit does not include the actual alt text strings, so relevance and descriptiveness cannot be assessed here.
 
-## External authority references (trust signals)
-The focus project includes two official references that can be used as authority links where appropriate: “STM32Cube documentation” (`https://www.st.com/en/development-tools/stm32cubeide.html`) and “ST motor control resources” (`https://www.st.com/content/st_com/en/ecosystems/stm32-motor-control-ecosystem.html`). The audit excerpt does not show these external links present on the audited pages, so their current on-page usage cannot be confirmed from the provided data. If added thoughtfully, these references can support credibility for setup and motor-control concepts without changing the product positioning.
+## Internal linking and anchor text
+- Tutorials hub: `internal_link_count: 23`, with samples that include navigation links and a direct link to `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/` using the anchor “STM32 self-balancing car setup and PID calibration checklist.”
+- Kit and product pages: `internal_link_count: 22`, with samples including navigation links and prominent conversion links (Add to Cart and Buy Now).
+The presence of a clearly worded, intent-aligned tutorial anchor on the tutorials hub is a strength because it matches the project topic and provides a direct path into the checklist content.
+
+## External authority references
+The provided internal link samples do not show external authority references. If the kit/product pages and the tutorial currently contain few or no outbound citations, adding a small number of relevant official references can strengthen perceived credibility for setup and tooling topics. The focus brief lists two suitable official references:
+- STM32Cube documentation (STM32CubeIDE)
+- ST motor control ecosystem resources
 
 ## Structured data (schema)
-The tutorials hub reports `has_schema_json_ld=false`, so it does not currently expose JSON-LD according to the audit input. The kit page and product page both report `has_schema_json_ld=true`, which is a positive baseline for ecommerce-style rich results. The audit does not specify schema types or properties, so completeness and validity cannot be confirmed within this report.
+- Tutorials hub: `has_schema_json_ld: false`.
+- Kit and product pages: `has_schema_json_ld: true`.
+This suggests structured data is present on commerce pages, but absent on the tutorials directory. The audit does not specify the schema type on the kit/product pages, so it cannot be evaluated for completeness or correctness here.
 
-## Conversion path & ecommerce UX signals
-Both the kit and product pages contain clear conversion CTAs, including “Add to Cart,” “Buy Now,” and “Ask a Question,” and they also link to Cart in the global navigation. The excerpt also includes “Shipping options may vary by destination,” a “Shipping & Quote” section heading, and a “Notes / Disclaimer” heading, which supports purchase readiness by addressing common buyer concerns. The tutorials hub includes a Cart link, but it does not include images or H2 groupings that could help route users from learning intent to the most relevant kit pages faster.
+## Conversion path and commercial clarity
+Both the kit and product pages include visible purchase CTAs with `?add-to-cart=122&quantity=1` and a “Buy Now” variant, and the excerpt states the item is “In stock.” The excerpt also shows a launch sale price (`$99.00`) and regular price (`$129.00`), which supports purchase intent. The “Related setup guides” block adds a pre-purchase and post-purchase support path by directing readers to the setup checklist, which can reduce returns and improve buyer confidence if the tutorial content is thorough.
 
 ## 5 prioritized actions (highest impact first)
-1. Differentiate the kit and product page titles and meta descriptions so each page has a distinct search intent and snippet, while keeping the primary keywords aligned to “STM32 self balancing car kit,” “self balancing robot PID tuning,” and “IMU robot car setup.”
-2. Add JSON-LD to the tutorials hub (`has_schema_json_ld=false`) so the page better represents a tutorial collection and improves eligibility for enhanced presentation, while keeping the implementation consistent with the site’s existing schema patterns.
-3. Introduce a small H2 structure on the tutorials hub (`h2_count=0`) to group tutorials by topic (for example STM32 robotics vs ESP32 smart home) and to surface the STM32 balancing checklist link more prominently.
-4. Add at least one relevant visual element to the tutorials hub (`image_count=0`) to increase scannability and engagement, while maintaining the current standard of complete alt text on all images (`missing_alt_count=0` is already achieved elsewhere).
-5. Add or verify a short “Official references” block on the STM32 setup tutorial (and optionally on kit/product pages) that links to STM32Cube IDE documentation and ST motor control ecosystem pages, because these are the provided authoritative references for toolchain and motor-control context.
+1. Differentiate the kit vs product page titles and meta descriptions so each URL targets a distinct intent and avoids duplicate SERP snippets.  
+2. Add JSON-LD to the tutorials hub (for example, a tutorial list structure) so the directory page communicates its content type and inventory more clearly.  
+3. Add H2 sections to `/tutorials/` to group guides by theme (for example, STM32 robotics, ESP32 dashboards, voice control) and to increase scannability beyond a flat list.  
+4. Ensure strong bidirectional internal linking among the kit page, product page, and the STM32 setup checklist page using intent-specific anchors (setup, IMU checks, motor direction, PID tuning).  
+5. Add 1–2 official external references on the STM32 setup checklist (and optionally on kit/product pages) using the provided STM32CubeIDE and ST motor control resources to strengthen authority for tooling and control-system guidance.
