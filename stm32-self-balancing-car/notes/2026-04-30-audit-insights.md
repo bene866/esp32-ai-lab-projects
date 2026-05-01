@@ -1,4 +1,4 @@
-# SEO Audit Report — STM32 Self-Balancing Car Kit — 2026-04-30
+# SEO Audit Report — STM32 Self-Balancing Car Kit (2026-04-30)
 
 ## Scope (provided crawl)
 - `https://feigen8n.online/tutorials/`
@@ -6,48 +6,40 @@
 - `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
 
 ## Crawl status
-- All URLs: `200 OK` (`ok=true`)
+- All three URLs returned `200 OK` (`ok=true`).
 
 ## Titles & meta descriptions
 - Tutorials hub
   - Title: `Tutorials – ESP32 AI Lab`
-  - Meta description: present (`meta_description_count=1`)
-  - Canonical: present (`canonical_count=1`)
+  - Meta description: present (`count=1`)
 - Kit page
   - Title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-  - Meta description: present but duplicated (`meta_description_count=2`)
-  - Canonical: present (`canonical_count=1`)
+  - Meta description: present but duplicated (`count=2`)
 - Product page
   - Title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-  - Meta description: present but duplicated (`meta_description_count=2`)
-  - Canonical: present (`canonical_count=1`)
+  - Meta description: present but duplicated (`count=2`)
+- Canonicals
+  - All pages show exactly one canonical (`canonical_count=1`).
 
 ## Headings
-- Tutorials hub: `h1=["Tutorials"]`, `h2_count=0`
-- Kit page: `h1=["STM32 Self-Balancing Car Kit"]`, `h2_count=9` (e.g., Order / Included / Features / Gallery / Shipping)
-- Product page: `h1=["STM32 Self-Balancing Car Kit"]`, `h2_count=9` (same structure as kit page)
+- Tutorials hub: H1 `Tutorials`; no H2 headings (`h2_count=0`).
+- Kit page: H1 `STM32 Self-Balancing Car Kit`; strong section structure (`h2_count=9`) with visible commerce and content blocks (e.g., “What You Can Explore”, “What’s Included”, “Key Features”).
+- Product page: Same as kit page (`h1` matches; `h2_count=9` with the same samples).
 
 ## Images
-- Tutorials hub: `image_count=0`
-- Kit page: `image_count=8`, `missing_alt_count=0`
-- Product page: `image_count=8`, `missing_alt_count=0`
+- Tutorials hub: `image_count=0`.
+- Kit page: `image_count=8`; `missing_alt_count=0`.
+- Product page: `image_count=8`; `missing_alt_count=0`.
 
 ## Internal links
-- All pages: `internal_link_count=21`
-- Tutorials hub internal link samples include `/tutorials/xiaozhi-compatible-esp32-voice-assistant/`, `/tutorials/esp32-s3-camera-ai-vision-starter/`, `/tutorials/esp32-smart-home-voice-control/`, `/tutorials/esp32-sensor-dashboard/`
-- Kit/Product page samples include add-to-cart and site navigation links (Home/Kits/Projects/About/Contact/Tutorials/Cart)
+- Tutorials hub: `internal_link_count=21` with navigation links and several tutorial entries (sample includes multiple `/tutorials/.../` paths).
+- Kit page: `internal_link_count=21`, including add-to-cart and site navigation.
+- Product page: `internal_link_count=21`, including add-to-cart and site navigation.
 
-## Schema (JSON-LD)
-- Tutorials hub: `has_schema_json_ld=false`
-- Kit page: `has_schema_json_ld=false`
-- Product page: `has_schema_json_ld=false`
+## Structured data (schema)
+- No JSON-LD detected on any audited page (`has_schema_json_ld=false`).
 
-## Prioritized actions (next 3)
-1) **Fix duplicated meta description tags** on the kit and product pages (`meta_description_count=2`) so each page outputs exactly one meta description.  
-2) **Add JSON-LD schema**:
-   - Product/Offer schema for the product page (and optionally the kit page if it is also a purchase landing page)
-   - CollectionPage/ItemList (or equivalent) for the tutorials hub  
-3) **Improve tutorials hub structure and discoverability**:
-   - Add 1–3 meaningful H2 sections (currently `h2_count=0`)
-   - Consider adding at least one representative image per tutorial block (currently `image_count=0`) while keeping alt coverage consistent with other pages (`missing_alt_count=0`)
-   - Once the planned tutorial exists, add a clear internal route to `/tutorials/stm32-self-balancing-car-setup/` from the STM32 kit/product pages and the tutorials hub.
+## Prioritized actions (next)
+1. Fix duplicate meta descriptions on both STM32 pages (`meta_description_count=2`) by leaving one unique, page-specific description per URL.
+2. Add JSON-LD to the kit and product pages (at minimum `Product`, plus `BreadcrumbList`) to align with ecommerce intent while preserving the single canonical already present.
+3. Improve the tutorials hub discoverability by adding at least one STM32-relevant entry point (an internal link to the planned tutorial slug `stm32-self-balancing-car-setup`) and introducing a simple H2 structure so the page is not a single-H1, no-image listing.
