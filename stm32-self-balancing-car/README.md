@@ -1,42 +1,51 @@
 # STM32 Self-Balancing Car (Kit Project)
 
-A hands-on STM32 self-balancing robot car kit project for learning **PID control**, **IMU attitude sensing**, **encoder motor feedback**, and embedded robotics experiments. This README is written as a **review-required draft** and focuses on a practical **setup + PID calibration checklist**.
+A practical STM32 self-balancing robot car kit project for learning **PID control**, **IMU attitude sensing**, **encoder feedback**, and embedded robotics bring-up.
+
+This README is written to be usable even when kit contents, board revisions, and firmware variants differ. Treat every checklist item as **“validate on your build”**.
 
 ---
 
-## Validation Status (as of 2026-04-30)
+## Project Status
 
-- Hardware validation: **Not verified in this repo run** (no claims of completed bench tests)
-- Documentation status: **Draft checklist** for human review
-- What to validate before publishing: assembly photos, wiring notes, firmware build steps, tuning logs, and demo media files
+- Hardware/bench validation: Not performed as part of this repo (no test claims)
+- Firmware/feature support: Varies by kit and code revision; verify in your build
+- Docs goal: Setup + PID tuning checklists with space for your notes
 
 ---
 
-## What’s Included (kit-level)
+## What to Verify (box contents vs capabilities)
 
-From the kit description:
+Different listings and revisions vary. Before you write “included” or “supported,” confirm with your actual kit and firmware.
 
-- STM32-based self-balancing robot car kit
-- Two-wheel balancing chassis
-- IMU attitude sensing module
-- Encoder gear motors
-- Ultrasonic module
-- Battery holder and wiring
-- Source code and learning materials
-- App control support
-- Ultrasonic obstacle avoidance / following function
+### A) Box contents (hardware) — verify in your kit
+Commonly listed items may include:
+- STM32-based controller board (or STM32 MCU on a main board)
+- Two-wheel chassis + hardware
+- Encoder gear motors (or motors + separate encoders)
+- IMU module (model varies)
+- Ultrasonic distance module (optional)
+- Battery holder / wiring (varies)
+
+### B) Capabilities (features) — verify in your firmware/build
+Listings sometimes mention:
+- Balance PID control using IMU attitude estimation
+- Encoder feedback usage
+- App/remote control modes
+- Ultrasonic obstacle behaviors (avoid/follow)
+
+Treat these as **firmware-dependent** until verified.
 
 ---
 
 ## Repo Intent
 
 This repo is meant to hold:
+- Setup notes that are safe to follow without assuming hidden steps
+- A PID calibration checklist with places to record results
+- Optional placeholders for media/logs (only if you choose to add them)
 
-- Setup notes that are **safe to follow** without assuming hidden steps
-- A **PID calibration checklist** with places to record results
-- Demo media placeholders (so reviewers can see what is still missing)
-
-If you add code, keep it reproducible and avoid embedding any sensitive data.
+If you add code or logs, keep them reproducible and avoid embedding sensitive data.
 
 ---
 
@@ -45,6 +54,7 @@ If you add code, keep it reproducible and avoid embedding any sensitive data.
 - Power off before changing wiring.
 - Keep the robot lifted (wheels free) for first motor direction checks.
 - Use a stable surface and clear space for first balancing attempts.
+- Add output limits and a fast “motors off” control path before attempting balance.
 
 ---
 
@@ -53,50 +63,51 @@ If you add code, keep it reproducible and avoid embedding any sensitive data.
 ### 1) Mechanical assembly (two-wheel chassis)
 - [ ] Chassis assembled tightly (no looseness around motor mounts)
 - [ ] Wheels installed and spin freely without rubbing
+- [ ] IMU board and controller board are firmly mounted (no rotation relative to chassis)
 - [ ] Center of mass roughly centered (battery placement consistent)
 
 ### 2) Wiring sanity checks
-- [ ] IMU module connected (orientation noted: “forward” direction marked)
-- [ ] Encoder motor feedback connected for both motors
-- [ ] Ultrasonic module connected (if used in your build)
-- [ ] Battery holder wired with correct polarity
+- [ ] IMU connected (orientation noted; “forward” direction marked)
+- [ ] Encoder feedback connected for both motors (if your build has encoders)
+- [ ] Ultrasonic module connected (only if present/used)
+- [ ] Battery/power wired with correct polarity
 - [ ] No cables can touch wheels during motion
 
-> Record here: IMU mounting orientation notes (text + photo filename):
+Record here: IMU mounting orientation notes (text + optional photo filename)
 - IMU notes:
-- Photo:
+- Photo filename (optional):
 
 ### 3) First power-on (no balancing yet)
 - [ ] Power on with wheels off the ground
-- [ ] Confirm motors can be commanded without unexpected direction
-- [ ] Confirm encoder feedback changes when wheels are spun by hand
-- [ ] Confirm IMU readings change when tilting the chassis (sign/direction noted)
+- [ ] Confirm motors can be commanded at low power
+- [ ] Confirm encoder feedback changes when wheels are spun by hand (if present)
+- [ ] Confirm IMU readings change when tilting the chassis (note sign/direction)
 
-> Record here:
+Record here:
 - Motor A direction OK? (Y/N)
 - Motor B direction OK? (Y/N)
-- Encoder A changes with wheel spin? (Y/N)
-- Encoder B changes with wheel spin? (Y/N)
+- Encoder A changes with wheel spin? (Y/N/NA)
+- Encoder B changes with wheel spin? (Y/N/NA)
 - IMU tilt direction notes:
 
 ---
 
 ## PID Calibration Checklist (Practical, repeatable)
 
-Goal: achieve stable balance using **PID control** with IMU attitude sensing and encoder feedback.
+Goal: achieve stable balance using PID control based on IMU attitude sensing (and encoder feedback if your firmware uses it).
 
 ### A) Pre-tuning prerequisites
 - [ ] IMU mounting orientation is known and consistent
-- [ ] Encoders report consistent direction (forward vs backward)
-- [ ] Motor directions are correct (forward command moves the robot forward)
-- [ ] Battery voltage is consistent for a tuning session (note the battery used)
+- [ ] Encoders report consistent direction (forward vs backward) (if present/used)
+- [ ] Motor directions are correct (forward command matches your definition of forward)
+- [ ] Output limits are in place (max command, optional rate limit, fast disable)
+- [ ] Power source is consistent for a tuning session (note the battery used)
 
 ### B) Data you should log each tuning attempt
-Create a simple tuning log (file or spreadsheet) and record:
-
+Create a tuning log (file or spreadsheet) and record:
 - Date/time:
 - Surface (floor type):
-- Battery / power notes:
+- Power notes (battery type/voltage notes if available):
 - IMU orientation note:
 - Parameters:
   - Kp:
@@ -107,79 +118,76 @@ Create a simple tuning log (file or spreadsheet) and record:
   - [ ] oscillation / shaking
   - [ ] slow drift
   - [ ] motor saturation (runs hard)
-  - [ ] stable for ___ seconds
+  - [ ] stable for ___ seconds (estimate)
 - Notes / changes made:
 
 ### C) Stepwise tuning loop (repeatable workflow)
-- [ ] Start with conservative parameters (record them; do not guess later)
-- [ ] Make **one change at a time**, then retry
+- [ ] Start with conservative parameters (record them)
+- [ ] Make one change at a time, then retry
 - [ ] If oscillation is strong, stop and reduce aggressiveness before continuing
-- [ ] If it falls immediately, re-check IMU orientation and motor directions before increasing gains
+- [ ] If it falls immediately, re-check IMU orientation and motor/encoder directions before increasing gains
 - [ ] When it can balance briefly, iterate toward longer stability and smaller correction motion
 
-### D) Encoder + speed feedback cross-check (optional but recommended)
-- [ ] If encoder feedback is used for motor control, confirm both wheels respond similarly
+### D) Encoder + speed feedback cross-check (optional)
+- [ ] If encoder feedback is used, confirm both wheels respond similarly
 - [ ] If one wheel consistently “runs away,” re-check encoder direction, wiring, and mechanical friction
 
 ---
 
-## Ultrasonic Module Bring-up (if used)
+## Ultrasonic Module Bring-up (Optional, if present/used)
 
-Supported feature (kit-level): ultrasonic obstacle avoidance / following function.
+Some kit listings mention ultrasonic-based behaviors; treat them as optional and firmware-dependent.
 
 Checklist:
-- [ ] Confirm the ultrasonic module is detected/used by your firmware (no assumptions)
+- [ ] Confirm the ultrasonic module is present and wired correctly
+- [ ] Confirm your firmware actually reads it (no assumptions)
 - [ ] Verify readings at short/medium distances with the robot stationary
-- [ ] Only enable obstacle behaviors after balance is stable (to avoid mixing causes)
+- [ ] Only enable obstacle behaviors after balance is stable (avoid mixing causes)
 
-> Record here:
+Record here:
 - Distance test notes:
 - Any minimum/maximum stable reading:
 
 ---
 
-## App Control Notes (if used)
+## App / Remote Control Notes (Optional, if present/used)
 
-Supported feature (kit-level): app control support.
+Some kit listings mention app/remote control; treat it as optional and firmware-dependent.
 
 Checklist:
 - [ ] Confirm pairing/connection steps are documented locally (no hidden steps)
 - [ ] Verify safe defaults (no unexpected full-speed motor command on connect)
 - [ ] If the app can switch modes, document each mode and expected behavior
+- [ ] Add a timeout/deadman behavior (return to neutral when commands stop)
 
-> Record here:
-- App used:
+Record here:
+- App/controller used:
 - Connection notes:
 - Mode list + observations:
 
 ---
 
-## Demo Media (Placeholders)
+## Media and Logs (Optional)
 
-Add real files and update names/paths here once available:
-
-- `media/bench-photo.jpg` — kit bench photo
-- `media/balance-first-success.mp4` — first stable balance clip
-- `media/pid-oscillation-example.mp4` — example failure mode (useful for debugging)
-- `media/app-control-demo.mp4` — app control behavior (if applicable)
-- `media/ultrasonic-demo.mp4` — obstacle avoidance/following demo (if applicable)
+If you choose to add media/logs for review or debugging, keep them clearly labeled and non-sensitive. Example filenames (adjust as needed):
+- `media/bench-photo.jpg` — bench photo (if you took one)
+- `media/balance-clip.mp4` — short balance attempt clip (if you recorded one)
+- `tuning/tuning-log.csv` — tuning log spreadsheet export (if you keep one)
+- `docs/wiring-notes.md` — wiring + orientation notes
 
 ---
 
-## Recommended Repo Additions (Non-secret)
-
-If you’re organizing this project, these folders make review easier:
+## Suggested Repo Structure (Optional)
 
 - `docs/` — setup notes, wiring photos, calibration notes
-- `media/` — images/videos listed above
+- `media/` — images/videos (only if you add them)
 - `tuning/` — PID logs and experiment notes
 
 ---
 
-## Related
+## Related Links (Reference)
 
 - Kit page: https://feigen8n.online/kits/stm32-self-balancing-car-kit/
 - Product page: https://feigen8n.online/product/stm32-self-balancing-car-kit/
 - Tutorials hub: https://feigen8n.online/tutorials/
-- Planned tutorial topic: **STM32 self-balancing car setup and PID calibration checklist**
 - Planned tutorial slug: `stm32-self-balancing-car-setup`
