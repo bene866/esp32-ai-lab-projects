@@ -3,23 +3,23 @@
 1) **Source:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
    **Target:** `/tutorials/stm32-self-balancing-car-setup/`  
    **Anchor text:** `STM32 self-balancing car setup and PID calibration checklist`  
-   **Placement:** Add a short “Setup checklist” sentence under **What You Can Explore** to route learners into a step-by-step workflow before they start tuning.  
-   **Safety notes:** Only add this link after the tutorial draft exists on the site, and keep wording checklist-style without implying verified balancing performance.
+   **Placement:** Add 1 sentence under **What You Can Explore** pointing to a safety-first setup flow before tuning.  
+   **Safety notes:** Only add after the tutorial URL is live; keep wording checklist-style and verification-first.
 
 2) **Source:** `https://feigen8n.online/product/stm32-self-balancing-car-kit/`  
    **Target:** `/tutorials/stm32-self-balancing-car-setup/`  
-   **Anchor text:** `setup + PID calibration checklist (STM32 balancing car)`  
-   **Placement:** Insert 1 sentence under **Notes / Disclaimer** that points to the checklist as “recommended reading before first power-on.”  
-   **Safety notes:** Avoid promising results or “works out of the box” claims, and ensure the disclaimer section still reads like a caution-first block.
+   **Anchor text:** `setup + PID calibration checklist (verify-on-your-build)`  
+   **Placement:** Add 1 sentence under **Notes / Disclaimer**: “Recommended reading before first power-on.”  
+   **Safety notes:** Avoid “works out of the box” or results language; keep it focused on safe bring-up steps.
 
 3) **Source:** `/tutorials/stm32-self-balancing-car-setup/`  
    **Target:** `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
    **Anchor text:** `STM32 Self-Balancing Car Kit`  
-   **Placement:** In the tutorial intro, add a “Kit reference” line that points to the kit page for what is included (IMU module, encoder gear motors, ultrasonic module, wiring).  
-   **Safety notes:** Keep the tutorial focused on setup steps, and avoid adding pricing language inside the tutorial body.
+   **Placement:** In the tutorial intro, add a “Kit reference” line directing readers to the kit page for the current **contents/options** and any official documentation links.  
+   **Safety notes:** Do not enumerate included parts in the tutorial unless you can prove them from provided source text.
 
 4) **Source:** `https://feigen8n.online/tutorials/`  
    **Target:** `/tutorials/stm32-self-balancing-car-setup/`  
    **Anchor text:** `STM32 self-balancing car setup`  
-   **Placement:** Add a new tutorial listing entry near the top of the Tutorials list to improve discovery from the hub.  
-   **Safety notes:** Do not add a placeholder link if the tutorial URL is not live, and keep the listing title consistent with the on-page H1 once published.
+   **Placement:** Add a new tutorial listing entry near the top to improve discovery from the hub.  
+   **Safety notes:** Do not publish a placeholder link if the tutorial slug is not live; align listing title with the published H1.

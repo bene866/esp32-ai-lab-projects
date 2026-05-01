@@ -10,93 +10,77 @@ publish_target: WordPress
 # STM32 Self-Balancing Car Kit setup + PID calibration checklist (draft)
 
 ## What this tutorial is (and is not)
-This is a **review-required** setup checklist for a two-wheel **STM32 self-balancing car kit** that uses an **IMU** for attitude sensing and **encoder motors** for wheel feedback, and may also include **ultrasonic** and **app control** features. Use it to structure your first build and tuning session. You must **verify your kit contents, wiring, firmware, and observed behavior on your own build** before relying on any step.
+This is a **review-required** setup and tuning checklist for a **typical two-wheel STM32 self-balancing car** workflow. Kit revisions vary, so treat this as a **structure for verification**—not a promise of included parts, firmware, or results. If your kit includes optional modules (for example, distance sensing or wireless control), validate the core balance loop first, then add features one at a time.
 
 ## Before you start: workspace + tools
-- A clear bench area where the robot can safely fall without damaging parts.
-- Basic hand tools for the chassis hardware (small screwdrivers, hex driver set, cutters).
-- A stable power source appropriate for your kit’s battery holder and wiring (confirm polarity before power-on).
-- A way to program your STM32 board (confirm your board’s programming interface on your hardware).
-- A method to view debug output (serial/logging) if your firmware supports it.
+- Clear bench area where the robot can safely fall without damaging parts.
+- Basic hand tools for chassis hardware (small screwdrivers, hex drivers, cutters).
+- Power source appropriate for **your** battery holder/wiring (confirm polarity before power-on).
+- A way to program **your** controller (confirm SWD/USB-UART/boot mode for your board).
+- A way to observe behavior safely (wheel-off-ground support; optional serial/logging if your firmware provides it).
 
 ## 1) Inventory check (do this before assembly)
-On the kit page, the “What’s Included” list mentions items such as an **STM32-based robot kit**, a **two-wheel chassis**, an **IMU module**, **encoder gear motors**, an **ultrasonic module**, and **battery holder + wiring**, plus **source code and learning materials**. Confirm what you actually received and set aside anything optional (like ultrasonic) until the core balance loop works.
+Check the kit/product page **“What’s Included”** section (or your packing list) and confirm what you actually received. Do not assume any module is included unless you can identify it in-hand.
 
 Checklist:
-- Identify the STM32 controller board and verify it powers up without smoke/heat.
-- Identify the IMU board and note any axis arrows or orientation markings.
-- Identify left/right motors and locate encoder connectors (if separate).
-- Identify motor driver hardware (standalone driver or integrated board) and its motor/power terminals.
-- Identify any optional add-ons (ultrasonic module, Bluetooth/app-control module) and keep them unplugged for first bring-up.
+- Identify the controller board (STM32-based or similar) and confirm basic power/connector condition.
+- Identify motor + driver parts (and any separate encoders, if present on your motors).
+- Identify the attitude sensor module (often an IMU) **if your kit uses one**, and note orientation markings.
+- Identify power parts (battery holder, switch, wiring harnesses) and inspect for damage.
+- Set aside any optional add-ons until core bring-up is stable.
 
 ## 2) Mechanical setup sanity (tighten first, tune later)
-Balancing robots are sensitive to looseness. Before wiring:
 - Tighten chassis screws, motor mounts, and wheel hubs so nothing wobbles.
 - Ensure both wheels spin freely with minimal friction.
-- Keep the IMU mounting location rigid; avoid foam tape for first tuning unless the kit explicitly requires it.
-- Route cables so they cannot touch the wheels during a fall.
+- Mount the attitude sensor rigidly; avoid “soft” mounting unless your documentation explicitly calls for it.
+- Route cables so they cannot touch wheels during a fall.
 
 ## 3) Wiring checklist (power off while plugging)
-Because kit revisions vary, follow your board labels and your documentation. Use this conservative order:
+Because pinouts and revisions vary, follow **your board labels** and **your documentation**.
 
-1. **Motors to driver**
-   - Connect each motor to the motor driver outputs.
-   - Keep left and right consistent with your intended “forward” direction.
+Conservative order:
+1. Motors → driver outputs (keep left/right consistent).
+2. Encoders → MCU inputs (if your motors have encoders; don’t force keyed plugs).
+3. Sensor module → MCU bus (I²C/SPI/UART depending on your hardware; verify voltage levels).
+4. Battery/power wiring → power input (confirm polarity; leave switch OFF until firmware is ready).
 
-2. **Encoders to MCU**
-   - Connect encoder channels to the MCU pins expected by your firmware.
-   - If connectors are keyed, do not force them.
-
-3. **IMU to MCU**
-   - Connect IMU power and bus lines (commonly I²C or SPI, depending on your hardware).
-   - Double-check IMU voltage requirements before powering.
-
-4. **Battery/power**
-   - Confirm polarity, then connect battery holder wiring to the power input.
-   - If there is a power switch, leave it OFF until firmware is ready.
-
-Bring-up rule: if anything gets hot, smells, or resets repeatedly, power off immediately and re-check wiring.
+Bring-up rule: if anything heats, smells, browns out, or resets repeatedly, power off and re-check wiring.
 
 ## 4) Firmware bring-up (minimum viable loop)
-Your first goal is not “standing balance.” Your first goal is **clean sensor reading + controlled motor output**.
-
-- Flash firmware that can read IMU angle/rate and drive motors with a capped PWM.
-- Confirm the IMU is detected and returns changing values when you tilt the robot by hand.
-- Confirm each motor spins under command at low speed.
-- Verify encoder counts change when you rotate each wheel by hand.
-
-Do not enable full PID balance until these four checks pass.
-
-## 5) IMU orientation + bias checks
-Self-balancing control fails quickly if axes are wrong.
+Goal: **clean sensor reading + controlled motor output**, not instant balancing.
 
 Checklist:
-- Hold the robot upright and slowly tilt forward/back; confirm the reported “pitch” (or equivalent) changes in the expected direction.
-- If the sign is reversed, fix it in firmware (axis mapping or sign flip) rather than “tuning around it.”
-- Keep the robot still for a few seconds at boot if your firmware performs gyro bias calibration; verify that behavior in your own code/materials.
+- Use firmware you trust (vendor, community, or your own) that can (a) read the attitude sensor (if used) and (b) command motors with a safe output cap.
+- Confirm sensor values change plausibly when you tilt the chassis by hand (if applicable).
+- Confirm each motor can spin slowly on command (wheels off the ground).
+- Confirm encoder counts change when you rotate wheels by hand (if encoders are part of your build).
+
+Do not enable full PID balance until these checks pass.
+
+## 5) Sensor orientation + bias checks
+- Tilt forward/back slowly; confirm the reported pitch/angle signal changes in the expected direction.
+- If the sign is reversed, fix axis mapping/sign in firmware rather than “tuning around it.”
+- If your firmware performs a still-at-boot bias step, keep the robot still and confirm (by logs/behavior) that calibration actually completes on your build.
 
 ## 6) PID calibration workflow (safe, incremental)
-Use a staged approach so you can stop safely.
-
 ### Stage A: Stabilize angle only
-- Start with a very low output limit so the robot cannot launch.
-- Increase **P** until it begins to resist falling but does not oscillate rapidly.
-- Add a small **D** to reduce overshoot and “buzzing.”
-- Keep **I** at zero initially to avoid slow drift runaway.
+- Start with a low output limit.
+- Increase **P** until it resists falling; back off if it chatters/oscillates.
+- Add a small **D** to reduce overshoot and fast wobble.
+- Keep **I** at zero initially.
 
-### Stage B: Add speed/position stabilization (if your firmware supports it)
-Many balancing cars layer loops (angle inner loop, speed outer loop) using encoder feedback.
-- Confirm encoder direction is correct for both wheels.
-- Tune the speed/position loop gently; aggressive outer-loop gains can destabilize an otherwise good angle loop.
+### Stage B: Add speed/position stabilization (only if your firmware uses encoders)
+- Confirm encoder direction/sign is correct per wheel.
+- Tune the outer loop gently; aggressive outer gains can destabilize the inner loop.
 
 ### Stage C: Add integral cautiously
-- Add small **I** only after the robot can balance briefly with P and D.
-- Watch for slow-growing oscillation or motor heating; if seen, reduce I and verify bias/leveling.
+- Add small **I** only after brief stable balance is possible.
+- Watch for slow-growing oscillation, drift, or motor heating; if seen, reduce I and re-check bias/leveling.
 
 ## 7) Optional modules (only after balance works)
-If your kit supports **ultrasonic obstacle avoidance/following** or **app control**, integrate one feature at a time:
-- Wire the module, confirm it is detected, and confirm its data is reasonable.
-- Do not change core PID gains while adding new features unless you can reproduce issues reliably.
+If your build includes optional modules (distance sensor, wireless/app control, etc.):
+- Integrate one feature at a time and validate its readings/latency first.
+- Avoid changing core PID gains while adding new features unless you can reproduce issues reliably.
 
 ## Related pages (for review)
 - Kit page: https://feigen8n.online/kits/stm32-self-balancing-car-kit/
