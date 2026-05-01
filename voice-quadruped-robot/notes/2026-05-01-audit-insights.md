@@ -1,34 +1,29 @@
-# SEO Audit Report — 2026-05-01 — Voice Quadruped Robot
+# SEO Audit Report — 2026-05-01 — DIY Voice-Controlled Quadruped Robot Kit
 
 ## Crawl status (provided audit)
-- `https://feigen8n.online/tutorials/` returned `200` with `ok=true`.
-- `https://feigen8n.online/kits/diy-voice-quadruped-robot-kit/` returned `200` with `ok=true`.
-- `https://feigen8n.online/product/diy-voice-quadruped-robot-kit/` returned `200` with `ok=true`.
+- Tutorials hub (`https://feigen8n.online/tutorials/`): `200` with `ok=true`.
+- Kit page (`https://feigen8n.online/kits/diy-voice-quadruped-robot-kit/`): `200` with `ok=true`.
+- Product page (`https://feigen8n.online/product/diy-voice-quadruped-robot-kit/`): `200` with `ok=true`.
 
-## Titles and meta descriptions
-- Tutorials hub title is `Tutorials – ESP32 AI Lab` with `meta_description_count=1`, and the description states it is “English build guides for practical ESP32 projects…”.
-- Kit page title is `DIY Voice-Controlled Quadruped Robot Kit | STEM Robotics Demo` with `meta_description_count=2`.
-- Product page title is `DIY Voice-Controlled Quadruped Robot Kit | STEM Robotics Demo` with `meta_description_count=2`.
-- All audited pages report `canonical_count=1`.
+## Titles and meta descriptions (provided audit)
+- Tutorials hub title: `Tutorials – ESP32 AI Lab`; `meta_description_count=1`; `canonical_count=1`.
+- Kit page title: `DIY Voice-Controlled Quadruped Robot Kit | STEM Robotics Demo`; `meta_description_count=2`; `canonical_count=1`.
+- Product page title matches kit page; `meta_description_count=2`; `canonical_count=1`.
 
-## Headings
-- Tutorials hub has H1 `Tutorials`, and `h2_count=0`.
-- Kit page H1 is `DIY Voice-Controlled Quadruped Robot Kit`, and it reports `h2_count=10` with samples including `What You Can Explore`, `What’s Included`, and `Key Features`.
-- Product page matches the kit page for H1 and reports `h2_count=10` with the same sampled section names.
+## Headings (provided audit)
+- Tutorials hub: H1 `Tutorials`; `h2_count=0`.
+- Kit page: H1 `DIY Voice-Controlled Quadruped Robot Kit`; `h2_count=10` (samples include `What You Can Explore`, `What’s Included`, `Key Features`).
+- Product page: same H1 and sampled H2 list as kit page.
 
-## Images
-- Tutorials hub has `image_count=0`.
-- Kit page has `image_count=9` with `missing_alt_count=0`.
-- Product page has `image_count=9` with `missing_alt_count=0`.
+## Images and internal links (provided audit)
+- Tutorials hub: `image_count=0`; `internal_link_count=21`.
+- Kit page: `image_count=9` with `missing_alt_count=0`; `internal_link_count=21`.
+- Product page: `image_count=9` with `missing_alt_count=0`; `internal_link_count=21`.
 
-## Internal links
-- Tutorials hub reports `internal_link_count=21`, including navigation links and multiple tutorial links such as `/tutorials/xiaozhi-compatible-esp32-voice-assistant/` and `/tutorials/esp32-s3-camera-ai-vision-starter/`.
-- Kit and product pages each report `internal_link_count=21`, and the sample includes navigation links plus purchase links such as `?add-to-cart=121&quantity=1` and `...&espai_buy_now=1`.
-
-## Schema (JSON-LD)
+## Schema (provided audit)
 - All audited pages report `has_schema_json_ld=false`.
 
 ## Prioritized actions (next changes)
-1. Reduce `meta_description_count` from `2` to `1` on both the kit page and the product page, and make each remaining description unique to its page intent.
-2. Add JSON-LD to the kit and product pages, because the audit reports no schema on any audited URL, and product-oriented structured data can be validated after publishing.
-3. Expand the Tutorials hub information architecture by adding at least two H2 sections and linking the new tutorial target `/tutorials/voice-quadruped-robot-assembly-guide/` from the kit page section `What You Can Explore` to connect “learn” traffic to a single assembly and movement test guide.
+1. Reduce kit + product `meta_description_count` from `2` to `1`, and make each remaining description unique to its page intent.
+2. Add JSON-LD to the kit and product pages (e.g., `Product`, and optionally `FAQPage`), then validate after publishing.
+3. Improve the Tutorials hub structure by adding at least two H2 sections, and link the new tutorial target `/tutorials/voice-quadruped-robot-assembly-guide/` from the kit page section `What You Can Explore` to connect “learn” traffic to a single assembly + first movement checks guide.

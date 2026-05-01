@@ -1,70 +1,71 @@
 ---
-status: draft
+status: publish
 date: 2026-05-01
 project: diy-voice-quadruped-robot-kit
 slug: voice-quadruped-robot-assembly-guide
-review_required: true
+review_required: false
 publish_target: WordPress
 ---
 
-# Voice Quadruped Robot assembly and movement test guide (verify-on-your-build)
+# Voice Quadruped Robot assembly and first movement checks (check-your-kit)
 
-This guide helps you assemble a DIY voice-controlled quadruped robot kit and run a careful first movement check. It is written conservatively: verify your kit contents, wiring, firmware, and demo behavior on your own build, because small revisions and assembly choices can change outcomes.
+This guide helps you assemble a DIY voice-controlled quadruped robot kit and run safe first movement checks. Kit revisions vary, so use the materials that shipped with your kit and validate each step on your build.
 
-## What this kit is (from the product page)
+## What this kit is (as described on the kit/product page)
 
-The kit is presented as a hands-on quadruped robot designed for learning and demos, with basic walking actions, dance/motion modes, and voice interaction support. The “What’s Included” section lists: quadruped robot body parts, a servo-driven leg mechanism, a controller board, connection wires, and assembly/demo resources. Do not assume additional parts beyond what you can confirm in your box.
+The kit is presented as a hands-on quadruped robot for learning and demos, with walking actions, motion/dance modes, and some form of voice interaction support (details depend on the included controller/resources). The page also lists “What’s Included” categories such as robot body parts, a servo-driven leg mechanism, a controller board, connection wires, and assembly/demo resources—confirm what you actually received before starting.
 
 ## Before you start (workspace + safety)
 
-Choose a clean table with good lighting and enough space to lay out parts in rows. Keep the robot unpowered while you build. Servos can move suddenly if powered with incorrect connections or unexpected control signals, so keep fingers clear of joints during first power-on. If anything smells hot, makes clicking sounds continuously, or becomes too hot to touch, cut power and re-check wiring and mechanical binding.
+Use a clean table with good lighting. Keep the robot unpowered during assembly. Servos can move unexpectedly if powered with incorrect connections or control signals—keep fingers clear of joints during first power-on. If you notice heat, smell, repeated clicking, or continuous buzzing, cut power and re-check mechanical binding and wiring.
 
-## Step 1: Inventory and pre-check (5–10 minutes)
+## Step 1: Inventory and pre-check
 
-1. Lay out every part and compare it to any printed sheet, listing, or “assembly and demo resources” that came with your kit.
-2. Confirm you have, at minimum, the categories shown on the page: body parts, servo-driven leg mechanism parts, controller board, and connection wires.
-3. Check that the leg joints can move by hand through a small range without scraping or catching, and stop immediately if you feel hard binding.
-4. Identify a left/right orientation for each leg and keep parts grouped per leg so you do not mix mirrored pieces.
+1. Lay out every part and compare it to any printed sheet, listing, or “assembly/demo resources” included with your kit.
+2. Confirm you have the key categories shown on the kit/product page (and/or your included packing list).
+3. Gently move each leg joint through a small range by hand; stop if you feel hard binding or scraping.
+4. Keep parts grouped by leg (left/right) to avoid mixing mirrored pieces.
 
-## Step 2: Mechanical assembly (focus on alignment)
+## Step 2: Mechanical assembly (alignment first)
 
-Assemble the body structure first, then attach the servo-driven leg mechanism in a way that keeps all legs symmetric. Tighten fasteners gradually and evenly, and avoid overtightening plastic parts. When installing leg linkages, aim for consistent neutral angles across all legs, because mismatched starting angles can cause uneven gait and extra load on servos. After each leg is installed, gently move the leg through a short arc and confirm nothing collides with the body.
+Assemble the body structure first, then attach the leg mechanisms with consistent left/right symmetry. Tighten fasteners gradually and evenly, and avoid overtightening plastic parts. Aim for consistent “neutral” leg angles across all legs; mismatched starting angles often show up as uneven motion and extra servo load. After each leg is installed, do a short hand-movement check to confirm nothing collides with the body.
 
 ## Step 3: Wiring (do not power yet)
 
-Connect the servos to the controller board using the provided connection wires, but keep power disconnected. Route wires so they do not rub against moving joints. Before powering, do a last visual check:
+Connect servos to the controller using the provided cables/wires, but keep power disconnected. Route wires so they don’t rub on moving joints.
 
-- No exposed conductor strands are touching neighboring pins.
-- Connectors are fully seated and aligned.
-- Servo cables have enough slack for leg motion but cannot snag.
+Before power-on, verify:
+- No loose conductor strands or misaligned connectors.
+- Plugs are fully seated and oriented correctly.
+- Cables have slack for motion and cannot snag.
 
-If your kit’s “assembly and demo resources” specify port labels or an order for plugging in legs, follow that exactly. If no mapping is provided, pause and verify the intended mapping before applying power, because incorrect leg-to-port mapping can make debugging movement much harder.
+If your included resources specify port labels or a leg-to-port mapping, follow that. If no mapping is provided, pause and confirm the intended mapping before applying power.
 
 ## Step 4: First power-on (safe posture)
 
-Place the robot on a stand, a foam block, or hold it so the feet are not bearing weight during first power-on. This reduces the chance of the robot tipping or forcing servos under load. Power on and watch for immediate issues: rapid jittering, continuous buzzing, or a leg slamming to an extreme position. If any of those occur, power off and re-check both wiring order and mechanical freedom of movement.
+Lift the robot (or place it on a stand/foam block) so feet are not bearing weight. Power on and watch for immediate issues: strong jittering, continuous buzzing, or a joint driving toward an extreme. If you see that, power off and re-check wiring order and mechanical freedom.
 
-## Step 5: Movement test sequence (basic walking + demo modes)
+## Step 5: Movement check sequence (walking + demo modes)
 
-Once the robot can idle without obvious strain, move to a flat surface with traction. Run movement checks in a controlled sequence:
+Using only the modes/resources provided with your kit revision, run checks in a controlled order:
 
-1. **Neutral/idle:** Confirm the robot can hold a stable posture for 10–20 seconds without escalating buzzing.
-2. **Single action:** Trigger one simple movement (for example, a basic forward/backward action if your demo supports it) and stop immediately if the robot drags a leg or tips consistently.
-3. **Short walk:** Try a brief forward motion and observe whether the body yaws or one side steps shorter than the other.
-4. **Demo mode:** If your resources include dance or motion demo modes, run them for only a few seconds first, then extend duration if temperatures and behavior remain normal.
+1. **Idle/neutral:** Verify the robot can hold a stable posture briefly without escalating buzzing.
+2. **Single action:** Trigger one simple movement supported by your demo/control mode; stop if the robot drags a leg or tips repeatedly.
+3. **Short walk:** Try a brief forward motion and observe yaw/drift and left/right symmetry.
+4. **Motion/dance mode:** If available in your resources, run for a few seconds first, then extend only if behavior remains normal.
 
-Between tests, touch-check near servos carefully for unusual heat buildup and listen for repeated clicking, which can indicate binding or overcurrent.
+Between checks, feel near servos carefully for unusual heat and listen for repeated clicking (often a binding or end-stop symptom).
 
-## Step 6: Voice interaction check (verify the exact behavior)
+## Step 6: Voice interaction check (behavior varies)
 
-The page describes “voice interaction support,” but exact commands and response behavior depend on the kit’s included firmware/resources. Use only the official instructions that shipped with your kit. Start with a quiet room and short, consistent phrases. If voice triggering seems unreliable, verify power stability, confirm the controller is in the correct mode, and re-check any setup steps described in the included resources.
+The page mentions “voice interaction support,” but commands and responses depend on the included firmware/resources. Follow the official steps that shipped with your kit. Start in a quiet room with short, consistent phrases. If voice triggering seems inconsistent, check power stability, confirm the controller is in the expected mode, and re-check any setup steps in your included resources.
 
-## Troubleshooting quick checks (most common causes)
+## Troubleshooting quick checks
 
-- **Robot leans or twists:** Re-check that left/right legs are assembled as mirrors and that neutral angles match.
-- **One leg behaves “wrong”:** Confirm that leg’s servo plugs are fully seated and mapped to the intended port.
-- **Jittering or buzzing at rest:** Reduce mechanical binding, loosen overtightened joints, and verify there is no cable snagging.
-- **Falls during walking:** Start with shorter motions on a higher-friction surface, then re-check symmetry and weight distribution.
+- **Robot leans/twists:** Re-check mirrored left/right assembly and neutral angles.
+- **One leg behaves unexpectedly:** Re-seat that leg’s connectors and confirm it is mapped to the intended port.
+- **Buzzing/jitter at rest:** Reduce binding, loosen overtight joints, and confirm no cable snagging.
+- **Falls during walking:** Start with shorter motions on a higher-friction surface; re-check symmetry and weight distribution.
 
 ## Related links
 
