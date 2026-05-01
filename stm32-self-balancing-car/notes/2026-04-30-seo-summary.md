@@ -4,37 +4,49 @@ Focus project: STM32 Self-Balancing Car Kit
 # Daily SEO Summary — 2026-04-30
 
 ## SEO snapshot (audit-based)
-- Crawled `200 OK` (`ok=true`):
-  - `https://feigen8n.online/tutorials/`
-  - `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
-  - `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
-- Indexability signals in audit:
-  - All three pages show `canonical_count: 1`.
-- Tutorials hub (`/tutorials/`):
-  - Title: `Tutorials – ESP32 AI Lab`
-  - Meta description count: `1` (audit excerpt appears truncated/long; full text not verified here)
-  - Structure: `h1=["Tutorials"]`, `h2_count=0`, `image_count=0`, `has_schema_json_ld=false`
-  - Internal links: `23`, including a link to `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/` with anchor “STM32 self-balancing car setup and PID calibration checklist”.
-- Kit + Product pages (both audited):
-  - Title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-  - Meta description count: `1`, canonical count: `1`
-  - Structure: `h2_count=11`, `image_count=8`, `missing_alt_count=0`, `has_schema_json_ld=true`
-  - Note: kit and product pages share the same title + meta description in the audit (duplication risk across URLs).
+- Audited URLs (`200 OK`, `ok=true`):
+  - Tutorials hub: `https://feigen8n.online/tutorials/`
+  - Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+  - Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
+- Canonicals: `canonical_count=1` on all three pages (good baseline duplicate-control signal in this snapshot).
+- Titles:
+  - Tutorials hub: `Tutorials – ESP32 AI Lab`
+  - Kit + Product: `STM32 Self-Balancing Car Kit | PID Control Robotics Project` (same title on both pages).
+- Meta descriptions:
+  - Tutorials hub: `meta_description_count=1` (excerpt appears truncated in the crawl snapshot).
+  - Kit + Product: `meta_description_count=1` and the text matches between kit/product pages in the provided audit.
+- Structure:
+  - Tutorials hub: `h1=["Tutorials"]`, `h2_count=0`
+  - Kit + Product: `h1=["STM32 Self-Balancing Car Kit"]`, `h2_count=11` including “Related setup guides” and the setup checklist title.
+- Media/accessibility:
+  - Tutorials hub: `image_count=0`
+  - Kit + Product: `image_count=8`, `missing_alt_count=0` (good).
+- Schema:
+  - Tutorials hub: `has_schema_json_ld=false`
+  - Kit + Product: `has_schema_json_ld=true`
+- Internal linking:
+  - Tutorials hub: `internal_link_count=23` and includes a visible link to `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`.
+  - Kit + Product: `internal_link_count=22` and includes a “Related setup guides” section with the same tutorial.
 
-## Generated files (today)
-- `audit-insights.md` — audit recap for the 3 URLs and what can/can’t be concluded from the provided crawl fields.
-- `tutorial-draft.md` — checklist-style bring-up flow for IMU sanity, motor direction, encoder checks, and safe PID tuning (revision-agnostic language).
-- `product-seo-review.md` — audit-based on-page review of kit/product pages plus discovery notes for the Tutorials hub.
-- `internal-link-suggestions.md` — internal + external link plan centered on routing buyers/readers between kit/product pages and the tutorial.
-- `github-readme-update-draft.md` — README draft positioning the repo as a pass/fail bring-up + tuning checklist (not a universal firmware promise).
+## Generated files (today’s run)
+- `audit-insights.md` — consolidated crawl-status + indexability signals limited to provided snapshot.
+- `tutorial-draft.md` — checklist-style tutorial draft for `slug: stm32-self-balancing-car-setup` targeting setup bring-up + PID calibration readiness.
+- `product-seo-review.md` — on-page SEO notes for kit/product pages (title/meta/H-structure/images/internal links) against the stated search intent.
+- `internal-link-suggestions.md` — internal/external link plan emphasizing “setup + PID tuning” paths without over-promising exact kit revisions.
+- `github-readme-update-draft.md` — README-oriented version of the same checklist intent for `repo_dir: stm32-self-balancing-car`.
 
-## GitHub README intent (repo: `stm32-self-balancing-car`)
-- Provide a repeatable validation sequence (sensing → actuation → closed-loop) aimed at isolating common balance failures (axis/sign, direction, encoder noise, power integrity, unstable gains) without assuming a specific kit revision.
+## GitHub README intent (what the update is trying to achieve)
+- Make the repository read like a **bring-up checklist**, not a “one true wiring diagram”, emphasizing verify-on-your-build checkpoints.
+- Put the highest-failure-risk items up front: power/ground sanity, IMU axes/sign correctness, encoder direction/polarity, and motor direction mapping before any PID work.
+- Keep commercial links secondary and clearly separated via a small “Related pages” style block (kit/product/tutorial).
 
-## Risks / watchouts
-- Hardware and wiring revisions vary by seller/revision; copy must stay “verify on your own hardware” and avoid guaranteed tuning outcomes.
-- Duplicate title/meta between kit and product URLs may dilute SERP differentiation for similar queries.
-- Tutorials hub has no H2s/images/schema in the audit; it may provide limited topical context beyond link anchors.
+## Risks / watch-outs (based on provided context)
+- **Duplicate positioning between kit and product pages:** same title and same meta description in the audit snapshot can blur differentiation (especially if both rank for the same query intent).
+- **Revision variability:** the tutorial and README must continue to avoid implying a fixed IMU model, fixed pinout, or guaranteed firmware flow (“pass/fail” verification language is the right tone).
+- **Tutorial hub thin structure:** `h2_count=0` and no schema; it works as a directory, but offers limited topical context beyond the excerpted intro text.
 
-## Next automated action
-- Prepare a WordPress draft for `slug: stm32-self-balancing-car-setup` using `tutorial-draft.md`, then stage a repo README update PR using `github-readme-update-draft.md` (no publishing/merging in this step).
+## Next automated action (not executed)
+- Prepare a PR-ready README update for the GitHub project by applying the structure from `github-readme-update-draft.md` into the `stm32-self-balancing-car` repository README, and cross-check that the “Related pages” URLs match:
+  - Tutorial: `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/`
+  - Kit: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+  - Product: `https://feigen8n.online/product/stm32-self-balancing-car-kit/`

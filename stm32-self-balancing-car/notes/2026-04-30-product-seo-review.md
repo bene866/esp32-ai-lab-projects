@@ -1,66 +1,88 @@
 # Product SEO Review — STM32 Self-Balancing Car Kit — 2026-04-30
 
-## Scope and goal
-This review covers the kit landing page and the product page for **STM32 Self-Balancing Car Kit**, with supporting notes for the Tutorials hub page because it drives discovery to the setup guide. The primary SEO goal is to capture high-intent searches for **STM32 self-balancing robot setup** and **PID tuning checklists** while keeping expectations realistic for different kit revisions.
+## Scope
+Target pages:
+- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`
+- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
+Supporting hub:
+- Tutorials hub: `https://feigen8n.online/tutorials/`
+Related tutorial (already linked from hub and product pages): `/tutorials/stm32-self-balancing-car-setup/`
+
+Primary keywords to cover naturally:
+- “STM32 self balancing car kit”
+- “self balancing robot PID tuning”
+- “IMU robot car setup”
 
 ## Current-page observations (audit-based)
-- Tutorials hub (`https://feigen8n.online/tutorials/`): The page returns `200 OK`, has exactly `1` meta description, exactly `1` canonical, a single H1 (“Tutorials”), `0` H2 headings, `0` images, `23` internal links, and no JSON-LD schema detected. The page already links to `https://feigen8n.online/tutorials/stm32-self-balancing-car-setup/` using the anchor “STM32 self-balancing car setup and PID calibration checklist.”
-- Kit page (`https://feigen8n.online/kits/stm32-self-balancing-car-kit/`): The page returns `200 OK`, uses the title “STM32 Self-Balancing Car Kit | PID Control Robotics Project,” has exactly `1` meta description and `1` canonical, H1 “STM32 Self-Balancing Car Kit,” `11` H2 headings, `8` images with `0` missing `alt`, `22` internal links, and JSON-LD schema detected.
-- Product page (`https://feigen8n.online/product/stm32-self-balancing-car-kit/`): The page returns `200 OK` and closely mirrors the kit page, including the same title, the same meta description count (`1`), the same canonical count (`1`), the same H1, the same H2 count (`11`), `8` images with `0` missing `alt`, `22` internal links, and JSON-LD schema detected.
+- Both kit and product pages return `200 OK` with `ok=true`.
+- Title (kit + product): “STM32 Self-Balancing Car Kit | PID Control Robotics Project”.
+- Meta description count (kit + product): `1` (no duplication detected).
+- Canonical count (kit + product): `1`.
+- H1 (kit + product): “STM32 Self-Balancing Car Kit” (matches product name).
+- H2 count (kit + product): `11`, including “Related setup guides” and “STM32 self-balancing car setup and PID calibration checklist”.
+- Images (kit + product): `8` with `0` missing `alt` (good baseline accessibility).
+- Internal links (kit + product): `22` with visible commerce CTAs (Add to Cart / Buy Now) and navigation links.
+- Schema JSON-LD (kit + product): `true` (present, but still worth validating type coverage and field completeness).
+- Tutorials hub returns `200 OK`, has `0` images, `0` H2s, `has_schema_json_ld=false`, and includes an internal link to “STM32 self-balancing car setup and PID calibration checklist”.
 
-## Search intent fit (what the page should satisfy)
-The search intent is practical and checklist-driven: users want a **bring-up sequence** (IMU sanity checks, motor direction verification, encoder feedback validation) and a **PID tuning checklist** for a two-wheel balancing robot. The current kit/product positioning emphasizes features (PID, IMU, encoder, app control), which is aligned with discovery intent, but it should also promise a clear next step: a safe path to “first stand” and “first stable balance attempt” without implying identical hardware across sellers.
+## Search intent alignment
+The stated search intent is “STM32 self-balancing robot setup, IMU checks, motor direction, PID tuning checklist”. The current kit/product pages already position the kit around PID control, IMU sensing, and encoder motors, and they already surface a setup guide entry. The main intent gap is likely “checklist depth” on the commercial pages, because the excerpt reads more like an overview and disclaimer than a task-driven, scannable bring-up flow.
 
-Primary keyword targets to reflect explicitly in on-page copy and headings include “STM32 self balancing car kit,” “self balancing robot PID tuning,” and “IMU robot car setup.”
+## Title + meta recommendations
+Keep the branding but sharpen intent coverage and keyword match.
 
-## Title and meta description recommendations
-- The current title is consistent and readable, but it is generic, and it under-utilizes the checklist-driven intent. A stronger title should include either “Setup” or “PID Tuning Checklist” while keeping the product identity clear.
-- Recommended title pattern for the kit page: “STM32 Self-Balancing Car Kit — Setup & PID Tuning Checklist.” This pattern keeps “STM32 Self-Balancing Car Kit” intact while matching the high-intent query framing.
-- Recommended title pattern for the product page: “STM32 Self-Balancing Car Kit — PID Control Robot with IMU + Encoders.” This pattern keeps the shopping intent while still echoing the technical differentiators already present in the copy.
-- The current meta description is feature-oriented (“PID control, IMU attitude sensing, encoder motor feedback, app control”), which is a good baseline, but it can be improved by adding a checklist promise and a revision-safe disclaimer in a single sentence.
-- Recommended meta description direction: one sentence that mentions setup checks and PID tuning as outcomes, followed by a short qualifier that steps must be verified on the buyer’s own hardware revision.
+Suggested title directions (choose one and keep it consistent on kit + product pages):
+1) “STM32 Self-Balancing Car Kit — IMU & PID Tuning Project”
+2) “STM32 Self-Balancing Car Kit | IMU Setup + PID Tuning Checklist”
+3) “STM32 Self-Balancing Car Kit | Two-Wheel PID Balance Robot”
 
-## H1/H2 guidance and on-page structure
-The H1 already matches the product name, which is appropriate. The H2 set is comprehensive, but it mixes conversion sections (“Order This Kit”) with learning sections (“What You Can Explore”) and a key intent section (“Related setup guides”). A clearer ordering improves both scanability and SEO relevance.
+Suggested meta description direction (one sentence, action + proof points, avoid claims you cannot verify):
+- “Build a two-wheel STM32 self-balancing robot and follow a practical IMU check + motor direction + PID tuning checklist. Includes IMU sensing, encoder motors, and a linked setup guide.”
 
-A recommended H2 ordering is: “What You Can Explore,” “Who This Kit Is For,” “Related setup guides,” “What’s Included,” “Key Features,” “Notes / Disclaimer,” “Shipping & Quote,” and then galleries. This ordering keeps the educational intent near the top while preserving purchase paths.
+## H1/H2 guidance
+- Keep the current H1 unchanged, because it is clean and matches the product name.
+- Reorder or rewrite H2s so the “Related setup guides” block appears above or near the first product photo, then add one new H2 that previews the checklist value without duplicating the full tutorial.
+- Add an H2 specifically targeting intent phrasing, such as “Setup & PID calibration (what you will validate)”, and use short bullets under it (IMU orientation check, motor direction check, encoder feedback sanity check, safe first power-on, PID tuning loop).
 
-## Copy gaps to close (without inventing specs)
-- The kit/product pages should add a short “Setup outcomes” paragraph that states what “done” looks like, such as passing IMU orientation checks, confirming motor direction, and reaching a first balance attempt. This paragraph can remain generic and does not require committing to specific board models or firmware filenames.
-- The pages should add a short “Common failure modes” block that lists observable symptoms (for example, immediate wheel runaway or persistent tilt drift) and the next safe diagnostic step. Each symptom should point to the setup guide rather than trying to fully solve the issue on the product page.
-- The “Related setup guides” section already exists and should be strengthened with two additional lines that explain who should read it before ordering and who should read it after assembly.
+## Copy gaps to close (without inventing hardware specifics)
+- Add a “What you will verify before tuning” section that is observable and revision-agnostic (orientation, wiring continuity, direction checks), because the excerpt currently emphasizes variability and disclaimers but does not surface enough actionable checkpoints.
+- Add “Who this kit is for” phrasing that matches “setup and PID calibration checklist” intent (learners who want a bring-up flow, not only a product spec list).
+- Add a short “Troubleshooting entry points” block that routes to the tutorial for the full checklist, and keeps the product page scannable.
 
-## Internal link placements (high-impact, low-risk)
-- Add one contextual link from the kit page’s “What You Can Explore” section to the setup tutorial (`/tutorials/stm32-self-balancing-car-setup/`) using an anchor that includes “setup” and “PID tuning checklist.”
-- Add one contextual link from the setup tutorial back to the kit page (`https://feigen8n.online/kits/stm32-self-balancing-car-kit/`) using an anchor that includes “STM32 self balancing car kit,” and place it near the checklist introduction.
-- Add one link from the Tutorials hub intro paragraph to the kit page using an anchor that clarifies purchase intent, such as “STM32 Self-Balancing Car Kit.” This link complements the existing hub link to the tutorial and creates a tighter hub-to-money-page pathway.
+## Internal-link placements (specific and reviewable)
+- On kit page and product page, keep the existing link to `/tutorials/stm32-self-balancing-car-setup/`, but adjust the surrounding sentence to include an intent phrase like “IMU checks, motor direction, and PID tuning checklist”.
+- On the tutorial page (when editing that content), add two reciprocal links near the top and near the end:
+  - Link back to the kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/` with an anchor like “STM32 self-balancing car kit”.
+  - Link back to the product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/` with an anchor like “order the STM32 self-balancing car kit”.
+- On the tutorials hub, the STM32 tutorial link already exists. Add one short contextual sentence under that card or list item (if the hub supports excerpts) that includes “PID tuning” and “IMU setup” phrasing.
 
-## Official outbound reference opportunities (trust-building)
-Two outbound references fit naturally in a “Tooling and learning resources” section without overpromising compatibility:
-- Link “STM32Cube documentation” to `https://www.st.com/en/development-tools/stm32cubeide.html` for readers who need a starting point for IDE and project workflows.
-- Link “ST motor control resources” to `https://www.st.com/content/st_com/en/ecosystems/stm32-motor-control-ecosystem.html` for readers who want broader context on motor control concepts.
+## Official outbound reference opportunities
+Add 1–2 outbound links where they help the reader complete setup tasks, not as generic footer links:
+- “STM32Cube documentation” (`https://www.st.com/en/development-tools/stm32cubeide.html`) as a resource for IDE/project bring-up context.
+- “ST motor control resources” (`https://www.st.com/content/st_com/en/ecosystems/stm32-motor-control-ecosystem.html`) as background reading for motor control concepts that relate to tuning and stability work.
 
-## Structured data (Product, Breadcrumb, Article)
-- The kit and product pages already detect JSON-LD, so the next action is to verify coverage rather than blindly adding more markup. The Product schema should represent the product name, a consistent canonical URL, and Offer information, and it should avoid contradictory pricing strings between pages.
-- Add or verify `BreadcrumbList` schema on both kit and product pages so search engines can understand the relationship between Home → Kits/Product → STM32 Self-Balancing Car Kit.
-- Add `Article` schema to the setup tutorial page so the checklist can be indexed as instructional content, and consider `ItemList` schema for the Tutorials hub because it is a directory-style page and currently has no JSON-LD detected.
+## Schema recommendations (validate and extend)
+Because JSON-LD is present on kit/product pages, validate that it covers:
+- `Product` with `name`, `image`, and an `offers` block that matches the visible pricing and “In stock” messaging from the excerpt.
+- `BreadcrumbList` so the kit/product pages produce clean breadcrumb rich results.
+- `Article` schema on the tutorial page (not the product page) to support “checklist” queries and improve eligibility for informational snippets.
+If JSON-LD currently exists only as Product, add BreadcrumbList, and ensure only one primary Product entity is declared to avoid ambiguity.
 
-## FAQ ideas (content that matches intent)
-- “How do I verify IMU orientation before PID tuning?”
-- “What should I check if the wheels spin the wrong direction?”
-- “How do I confirm encoder feedback is working in a safe way?”
-- “What is the safest first PID tuning sequence for a balancing robot?”
-- “Why does my robot drift even when it looks level?”
+## FAQ ideas (for intent capture and snippet eligibility)
+Add 4–6 FAQs on the kit/product page that are phrased as setup questions, not specs you cannot guarantee:
+- “What should I verify before attempting PID tuning?”
+- “How do I confirm the IMU orientation is correct?”
+- “What is the safe first power-on sequence for a balancing robot?”
+- “How do I check motor direction before balancing?”
+- “What is the simplest PID tuning order for a first stable stand?”
 
-Each FAQ answer should be short and should point back to the checklist steps, because the goal is to reduce abandonment and support troubleshooting without claiming a universal firmware stack.
+## Conversion risks to address
+- The excerpt correctly warns that revisions vary, but if the page feels too disclaimer-heavy early on, it may reduce buyer confidence. Balance the disclaimer with a short, concrete “You will be able to validate these steps on your own hardware” checklist preview.
+- Ensure the “setup guide” link is visible before the first purchase CTA for readers arriving from “PID tuning checklist” searches, because their first action is often to evaluate documentation quality.
 
-## Conversion risks to mitigate
-- The pages must avoid implying that every buyer receives the same PCB, IMU, motor driver, or firmware layout, because revision mismatch is common in kits and can trigger refunds. A short “revision variability” note already appears in the setup-guide excerpt on the kit/product pages, and that message should be echoed once above the “Order” block.
-- The kit page and product page are very similar, so they risk competing with each other for the same query set. A clearer differentiation helps, where the kit page emphasizes learning and guide flow, and the product page emphasizes purchase details and ordering clarity.
-
-## Prioritized fixes
-- P0: Update title and meta description to reflect “setup” and “PID tuning checklist” intent while keeping the product name intact.
-- P0: Strengthen internal linking by adding one additional contextual link to the tutorial from a learning section and one return link from the tutorial to the kit page.
-- P1: Reorder H2 sections so learning intent and setup guides appear earlier, while keeping purchase CTAs prominent.
-- P1: Add a concise “Setup outcomes” paragraph and a “Common failure modes” block that routes readers to the tutorial.
-- P2: Verify JSON-LD coverage on kit/product pages and add Breadcrumb and Article schema where appropriate, including schema for the Tutorials hub which currently has none detected.
+## Prioritized fixes (highest impact first)
+1) Update title/meta to include “IMU setup” and “PID tuning checklist” language while staying truthful and consistent across kit + product pages.
+2) Add a scannable “Setup & PID calibration (what you will validate)” H2 section on kit + product pages with 5–7 revision-agnostic bullets.
+3) Strengthen internal linking: product/kit ↔ tutorial cross-links with intent-matching anchors, and add a short descriptive line on the tutorials hub if supported.
+4) Validate and, if needed, expand schema to include `BreadcrumbList` on kit/product pages and `Article` on the tutorial page.
+5) Add setup-focused FAQs on the kit/product pages to capture “how to” queries without promising specific components or performance.
