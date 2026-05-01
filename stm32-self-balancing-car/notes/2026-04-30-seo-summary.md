@@ -1,38 +1,44 @@
 Status: AI draft for review  
-Focus project: STM32 Self-Balancing Car Kit  
+Focus project: STM32 Self-Balancing Car Kit
 
 # Daily SEO Summary — 2026-04-30
 
 ## SEO snapshot (audit-based)
-- Pages checked (all `200 OK`):  
+- URLs checked (`200 OK`):  
   - `https://feigen8n.online/tutorials/`  
   - `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`  
   - `https://feigen8n.online/product/stm32-self-balancing-car-kit/`
-- Titles: kit + product pages share the same title: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
-- Meta descriptions: **duplicate meta description tags present** on both kit + product pages (`meta_description_count = 2`)
-- Canonicals: present (`canonical_count = 1`) on all audited pages
-- Headings: tutorials index has `H1 = Tutorials` and **no H2**; kit/product pages show `H1 = STM32 Self-Balancing Car Kit` with `H2_count = 9`
-- Images: kit/product pages have `image_count = 8` with `missing_alt_count = 0`
-- Structured data: **no JSON-LD detected** on audited pages
+- Titles:
+  - Tutorials hub: `Tutorials – ESP32 AI Lab`
+  - Kit page: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
+  - Product page: `STM32 Self-Balancing Car Kit | PID Control Robotics Project`
+- Meta descriptions:
+  - Tutorials hub: present (`count=1`)
+  - Kit page: duplicated (`count=2`)
+  - Product page: duplicated (`count=2`)
+- Canonicals: present on all three pages (`count=1`)
+- Headings & content structure:
+  - Tutorials hub: H1=`Tutorials`, no H2 (`h2_count=0`), no images (`image_count=0`)
+  - Kit/Product pages: H1 present; H2 count=`9` (includes sections like ordering, included parts, features, gallery, notes, shipping)
+- Structured data: Schema JSON-LD not detected on all three pages
 
-## Generated outputs (today)
-- `audit-insights.md` — audit recap focused on meta duplication + missing JSON-LD
-- `tutorial-draft.md` — draft: `STM32 self-balancing car setup and PID calibration checklist` (slug: `stm32-self-balancing-car-setup`)
-- `product-seo-review.md` — draft recommendations (not applied) for kit + product pages
-- `internal-link-suggestions.md` — proposed linking between kit/product pages and `/tutorials/stm32-self-balancing-car-setup/` (to apply only after the tutorial exists)
-- `github-readme-update-draft.md` — technical-first README draft with an explicit “not verified” status table
+## Generated files (today)
+- `audit-insights.md` — crawl findings and issues (meta duplication, missing schema, hub page structure)
+- `tutorial-draft.md` — `stm32-self-balancing-car-setup` checklist draft (setup order + safe PID calibration workflow; no assumed gains)
+- `product-seo-review.md` — audit summary + concrete on-page SEO recommendations (not applied)
+- `internal-link-suggestions.md` — 2 link placements from kit/product pages to `/tutorials/stm32-self-balancing-car-setup/`
+- `github-readme-update-draft.md` — review-required README draft framing (firmware + tuning notes as checklists, not “verified results”)
 
-## GitHub README intent (draft)
-- Position the repo as a learning-oriented balancing car project (PID + IMU + encoder feedback) without claiming bench-verified performance.
-- Provide a clear validation checklist so future commits can turn “Not verified” items into reproducible steps (toolchain/flash/logging/app/ultrasonic details added only after confirmation).
+## GitHub README intent (repo: `stm32-self-balancing-car`)
+- Provide a checklist-first onboarding doc: bench-safe bring-up, polarity/sign sanity checks (IMU + encoders + motors), and a staged PID tuning workflow.
+- Keep all behavior statements as diagnostic targets; explicitly avoid claiming real-world balance success.
 
-## Risks / review flags
-- SEO: duplicate meta description tags on both kit and product pages can dilute snippets and complicate auditing.
-- Discoverability: missing JSON-LD means no structured Product/Article signals from these pages (as audited).
-- Content completeness: `tutorial-draft.md` currently ends with an unfinished section marker (`##`) and needs a human pass before any publish action.
-- Internal links: kit/product pages already contain repeated commerce CTAs; documentation links should remain single, contextual, and non-CTA.
+## Risks / blockers to address
+- Duplicate meta descriptions on kit and product pages (`meta_description_count=2`) can dilute snippets and reduce consistency.
+- No JSON-LD detected (site-wide across the audited pages), limiting rich-result eligibility signals.
+- Tutorial hub is thin structurally (no H2, no images), making internal discovery/navigation weaker.
+- Tuning content must remain “review-required” and avoid any implied validated PID values or confirmed hardware performance.
 
-## Next automated action (queued, not executed)
-1. After approval, finish the tutorial draft into a publishable WordPress draft at `/tutorials/stm32-self-balancing-car-setup/` (no unverified hardware claims).  
-2. Once the tutorial URL resolves, apply exactly one contextual internal link on both kit + product pages pointing to the tutorial.  
-3. Open a theme/template task to remove the extra meta description tag and add JSON-LD (Product for kit/product pages; Article for tutorial).
+## Next automated action (queued)
+- Prepare the tutorial landing URL `/tutorials/stm32-self-balancing-car-setup/` as a draft (matching the checklist positioning) and stage the two internal links from kit/product pages using the suggested anchors.
+- Create a PR-ready README update from `github-readme-update-draft.md` into the `stm32-self-balancing-car` repo directory after a human confirms filenames/paths and any referenced materials exist.

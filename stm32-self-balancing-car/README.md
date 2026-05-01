@@ -1,179 +1,158 @@
-# STM32 Self-Balancing Car Kit — Setup & PID Calibration Checklist (Repo Draft)
+# STM32 Self-Balancing Car Kit — firmware + tuning notes (draft)
 
-A hands-on STM32 self-balancing robot car project for learning **PID control**, **IMU attitude sensing**, and **encoder motor feedback**, with optional **app control** and an **ultrasonic** module for simple obstacle-avoidance / following experiments.
+A technical, review-required README for a **STM32-based self-balancing robot car kit** focused on **PID control**, **IMU attitude sensing**, **encoder motor feedback**, and optional **app control** + **ultrasonic obstacle avoidance/following**.
 
-## Validation Status (as of 2026-04-30)
+## Validation status (as of 2026-04-30)
 
-This README is a **technical-first draft**. It does **not** claim any verified hardware testing.
+- This document is a **checklist-style draft** intended for human review.
+- No automated system here has flashed hardware or verified real-world balance performance.
+- Any “expected behavior” notes below are **diagnostic targets**, not confirmed results.
 
-| Item | Status | Notes |
-|---|---:|---|
-| Firmware builds | Not verified | Add exact toolchain + command once confirmed |
-| Flash / program | Not verified | Add programmer + steps once confirmed |
-| IMU data stable at rest | Not verified | Requires bench check + logging |
-| Encoder counts correct direction | Not verified | Requires wheel spin test |
-| Balance on stand (wheels off ground) | Not verified | Safer first PID bring-up step |
-| Balance on floor | Not verified | Requires tuned PID + safety checks |
-| App control | Not verified | Add app + protocol details after confirmation |
-| Ultrasonic avoid/follow mode | Not verified | Add wiring + thresholds after confirmation |
+## What’s included (kit-level)
 
-## What’s Included (Kit-Level)
+From the kit description:
 
-- STM32-based self-balancing robot car kit
-- Two-wheel balancing chassis
+- STM32-based self-balancing robot car kit + two-wheel balancing chassis
 - IMU attitude sensing module
 - Encoder gear motors
 - Ultrasonic module
 - Battery holder and wiring
 - Source code and learning materials
 
-## Safety Notes (Read Before Power-On)
+## Safety + handling notes
 
-- Do first tests **with wheels off the ground** (stand/block the chassis).
-- Keep a **kill-switch** ready (battery unplug / power switch) and avoid loose wiring near wheels.
-- Start with **low motor output limits** and **short test windows** to avoid runaway oscillation.
+- Always bench-test with wheels off the ground first (or lightly constrained) to avoid sudden acceleration.
+- If anything feels reversed (tilt sign, motor direction, encoder sign), **stop and fix polarity/sign** before PID tuning.
+- Power: confirm battery wiring is correct before connecting.
 
-## Bring-Up Checklist (No Assumed Pinout)
+## Bring-up checklist (mechanical + wiring)
 
-Use this section as a **repeatable checklist**. Fill in the specifics (MCU model, pins, timer channels, IMU type, etc.) after confirming the actual hardware + code.
+### 1) Mechanical sanity
+- Fasteners tightened; wheels secure; chassis not flexing around the IMU mount area.
+- IMU board rigidly mounted (no foam wobble) and oriented consistently (define “forward”).
 
-### 1) Mechanical / Assembly Sanity
+### 2) Motor direction (polarity)
+- Identify left/right motor.
+- Confirm that a “forward” motor command produces the same physical wheel direction on both sides.
+- If one wheel spins opposite, swap motor leads (or invert in firmware later—pick one method and document it).
 
-- Verify both wheels spin freely; chassis is symmetric; battery is secured.
-- Confirm IMU is mounted firmly and oriented consistently (define **IMU frame** vs **robot frame**).
-- Confirm encoder disks/sensors are aligned; no intermittent contact.
+### 3) Encoder wiring (signal validity)
+- Confirm encoders report counts when wheels rotate by hand.
+- Confirm counts increase/decrease consistently with wheel direction.
+- If counts never change: re-check encoder connector, power, and ground continuity.
 
-### 2) Power & Basic Electrical
+### 4) IMU wiring (power + bus)
+- Confirm stable power to the IMU module.
+- Confirm the firmware can read raw IMU data (at least “device present + numbers change when moved”).
 
-- Confirm battery polarity and connector orientation.
-- Confirm motor driver wiring is correct (left/right mapping).
-- Confirm IMU and ultrasonic modules have correct power rails and stable ground reference.
+### 5) Ultrasonic module (optional)
+- Power and signal lines connected.
+- Verify distance reading changes with a target moved in/out.
 
-### 3) Firmware Minimum Features (Stage-Gated)
+## Firmware setup (repo expectations)
 
-Target incremental milestones:
+This repo should ultimately contain (or link to) the following, but filenames and tooling may differ by your environment:
 
-- **Stage A — Sensors only:** read IMU angle estimate + raw gyro/accel; read encoder counts.
-- **Stage B — Motors only:** open-loop motor drive with strict limits (no balance control).
-- **Stage C — Balance on stand:** closed-loop angle stabilization with output clamps.
-- **Stage D — On-floor balance:** add speed/position loop (encoders) only after angle loop is stable.
-- **Stage E — Extras:** app control + ultrasonic behavior modes.
+- `firmware/` (recommended): STM32 firmware project (source + config)
+- `docs/` (recommended): wiring notes, photos, tuning logs, demo media
 
-## IMU Setup Notes (Practical, Hardware-Agnostic)
+Minimum “ready to tune” firmware capabilities:
 
-### Define the “Balance Axis”
-- Decide which axis represents pitch (forward/back tilt) for balancing.
-- Document sign conventions:
-  - Positive angle direction
-  - Positive motor command direction
-  - Positive encoder direction
+- Read IMU attitude-related values (raw and/or derived angle)
+- Read encoder counts / speed per wheel
+- Control motor PWM (and direction) per wheel
+- A place to edit/control PID gains (compile-time constants or runtime commands)
+- A serial/debug output mode to log: angle, target angle, motor output, encoder speed
 
-### Quick IMU Sanity Tests
-- At rest, the angle estimate should be stable (low drift) over ~30–60 seconds.
-- When tilting the robot forward/back by hand:
-  - Angle changes smoothly
-  - Direction matches your sign convention
+If these aren’t present yet, add them before attempting balance.
 
-If any of these fail, fix sign/orientation before touching PID.
+## IMU setup checklist (practical)
 
-## Encoder Setup Notes
+- Define your sign conventions in one place:
+  - “Forward tilt” angle sign (+/−)
+  - Left/right wheel positive direction
+- Verify IMU readings behave correctly:
+  - When you tilt the chassis forward, the reported angle should move consistently in one direction.
+  - When stationary, the angle should be stable (small noise is normal).
 
-### Quick Encoder Sanity Tests
-- Spin left wheel forward by hand:
-  - Left encoder count increases (or decreases) consistently
-  - Right encoder stays mostly unchanged (minor noise is acceptable)
-- Repeat for right wheel.
+Recommended notes to capture in `docs/tuning-log.md`:
+- IMU mounting orientation (arrow/edge facing forward)
+- Any offsets applied (if you use them)
+- Sampling rate used (if known)
 
-Document:
-- Counts per wheel revolution (measured)
-- Any gearing ratio assumptions used in software
+## Encoder + motor feedback checks
 
-## PID Calibration Checklist (Recommended Order)
+Before balance tuning, confirm the platform can do controlled wheel motion:
 
-This project is best tuned **inside-out**:
+- Command a low, fixed PWM and observe each wheel spin smoothly.
+- Log encoder speed and confirm it scales with PWM.
+- Confirm the control loop can slow/stop wheels reliably (no “sticky start” surprises).
 
-1) **Angle loop** (IMU → motor torque)  
-2) **Speed loop** (encoders → target angle bias)  
-3) **Position loop / drift correction** (optional, depends on implementation)
+## PID calibration checklist (balance-first workflow)
 
-### Step 0 — Set Conservative Limits
-- Clamp motor PWM / command output (start low).
-- Add a watchdog/timeout to disable motors if sensor data stops updating.
-- Add a “fallen over” threshold: if angle exceeds a safe limit, cut motors.
+This is a **checklist for iterative tuning**, not a promise of a specific algorithm.
 
-### Step 1 — Tune Angle P (Proportional)
-- With wheels off the ground:
-  - Increase `Kp_angle` until the system starts to react strongly to tilt.
-  - Back off if it oscillates rapidly or saturates output continuously.
+### Step A — lock down the target angle
+- Decide your “upright” target (often near the mechanical center of mass).
+- Add a small deadband (optional) so tiny angle noise doesn’t cause constant twitching.
 
-**Goal:** strong correction without sustained oscillation.
+### Step B — start with conservative gains
+- Begin with only **P** (I = 0, D = 0).
+- Increase P slowly until the robot *tries* to correct tilt but does not oscillate violently.
 
-### Step 2 — Add Angle D (Derivative / Damping)
-- Increase `Kd_angle` to reduce oscillation and overshoot.
-- If the response becomes noisy/jittery, reduce `Kd_angle` or filter gyro/angle.
+Diagnostic targets:
+- Too low P: falls over with weak correction.
+- Too high P: rapid oscillation / buzzing / wheel chatter.
 
-**Goal:** damped response that settles quickly after a tilt.
+### Step C — add D to reduce oscillation
+- Introduce **D** in small steps to dampen overshoot.
+- If D is too high: response becomes jittery / noisy (often amplifies measurement noise).
 
-### Step 3 — Add Angle I (Integral) Only If Needed
-- Use integral sparingly for steady-state bias (sensor bias / motor mismatch).
-- Too much integral will cause slow build-up and sudden runaway.
+### Step D — add I only if needed
+- Use **I** to correct long-term bias (e.g., it “leans” and slowly drifts).
+- Keep I small; watch for slow growing oscillations or runaway.
 
-**Goal:** correct small residual lean without slow oscillation.
+### Step E — integrate encoder feedback (speed/position) carefully
+If you add a speed/position term (often used to prevent drifting), do it after basic balance is stable:
 
-### Step 4 — Introduce Speed Loop (Encoders)
-Once angle loop is stable:
-- Use encoder speed to adjust the target angle slightly (lean forward to move forward).
-- Start with very small gains and strict clamps on angle bias.
+- Confirm the sign: if it “runs away,” the speed loop is likely inverted.
+- Add speed correction gently; too aggressive speed control can destabilize balance.
 
-**Goal:** control forward/back speed without destabilizing balance.
+### Step F — document one change at a time
+For each tuning iteration record:
+- Gains changed (P/I/D and any speed term)
+- Symptom observed (oscillation frequency, drift direction, jitter)
+- Battery level / surface type (these can change behavior)
 
-### Step 5 — Optional Position / Drift Correction
-- Only after speed loop behaves.
-- Keep gains tiny; prioritize stability over “perfect stillness”.
+## Optional features checklist
 
-## Logging & Debug (Strongly Recommended)
+### App control support (optional)
+- Define what “app control” means in your firmware:
+  - Setpoint angle trim?
+  - Speed/turn commands?
+  - Mode switching?
+- Add a safety timeout: if control packets stop, revert to neutral.
 
-Add (or enable) a simple telemetry stream (UART/USB):
-- Timestamp
-- Angle estimate
-- Gyro rate
-- Encoder counts/speed
-- PID terms (P/I/D)
-- Motor outputs
+### Ultrasonic obstacle avoidance / following (optional)
+- Treat ultrasonic behaviors as a *higher-level* layer:
+  - Do not let obstacle logic directly break the balance loop timing.
+  - Convert distance behavior into a gentle speed setpoint rather than raw motor overrides.
 
-This makes tuning repeatable and reviewable.
+## Demo media placeholders (add real files later)
 
-## Demo Media (Placeholders)
+Create a simple, reviewable media set under `docs/media/`:
 
-Add real media once captured (no placeholders should be presented as proof of validation).
+- `docs/media/bench-photo.jpg` — bench photo (kit assembled)
+- `docs/media/balance-demo.mp4` — first stable balance attempt (short clip)
+- `docs/media/encoder-test.mp4` — wheels off-ground, encoder + direction test
+- `docs/media/ultrasonic-demo.mp4` — obstacle avoid/follow (if used)
 
-- `media/bench-imu-telemetry.png` — IMU angle stability at rest
-- `media/stand-angle-step.gif` — wheels-off-ground angle response to hand tilt
-- `media/first-balance-on-floor.mp4` — first stable balancing clip
-- `media/app-control-demo.mp4` — app control (if used)
-- `media/ultrasonic-avoid-demo.mp4` — avoid/follow mode (if used)
-
-## Repository Conventions (Recommended)
-
-If you need a clean structure, consider:
-
-- `firmware/` — STM32 project source
-- `docs/` — calibration notes, wiring tables, tuning logs
-- `media/` — images/videos used in docs
-- `tools/` — scripts for plotting logs / parameter sets
-
-(Adjust to match the actual repository layout.)
+When adding media, also add:
+- `docs/media/README.md` — what each clip demonstrates and which firmware revision/gains were used.
 
 ## Related
 
 - Kit page: https://feigen8n.online/kits/stm32-self-balancing-car-kit/
 - Product page: https://feigen8n.online/product/stm32-self-balancing-car-kit/
-- Tutorials index: https://feigen8n.online/tutorials/
-- Planned tutorial slug (may not be published yet): `stm32-self-balancing-car-setup`
-
-## Maintenance Notes (For Contributors)
-
-- Do not merge “tuned PID values” without:
-  - the exact hardware configuration (IMU type/orientation, motor/encoder details)
-  - a short tuning log (what changed, why, and what improved)
-- Avoid hardcoding assumptions (pins, axes, counts/rev) without documenting them in `docs/`.
+- Tutorials hub: https://feigen8n.online/tutorials/
+- Planned tutorial topic: **STM32 self-balancing car setup and PID calibration checklist** (slug: `stm32-self-balancing-car-setup`)
