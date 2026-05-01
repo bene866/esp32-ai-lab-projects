@@ -1,41 +1,35 @@
 # Product SEO Review — STM32 Self-Balancing Car Kit — 2026-04-30
-Status: draft recommendations (not applied)  
-Uniqueness seed: `feac300aa1ae2cbbe90517966488864212c2d2a184c0d46363113384d92c6f55`
 
-## Current-page observations (audit-based)
-- `https://feigen8n.online/kits/stm32-self-balancing-car-kit/`: `200 OK`, title = “STM32 Self-Balancing Car Kit | PID Control Robotics Project”, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`.
-- `https://feigen8n.online/product/stm32-self-balancing-car-kit/`: `200 OK`, same title as kit page, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`.
-- H1 is present on both kit/product pages: “STM32 Self-Balancing Car Kit”.
-- H2 count on both kit/product pages is `9` (includes “Order This Kit”, “What You Can Explore”, “What’s Included”, “Key Features”, “Notes / Disclaimer”, “Shipping & Quote”).
-- Images: `8` with `0` missing alt on both kit/product pages.
-- Tutorials hub `https://feigen8n.online/tutorials/`: `200 OK`, H1 = “Tutorials”, H2 count = `0`, images = `0`, JSON-LD schema = `false`.
+## Current-page observations (from provided audit)
+- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/` → `200 OK`, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`.
+- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/` → `200 OK`, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`, title matches kit page.
+- Both kit/product pages: H1 present (“STM32 Self-Balancing Car Kit”), H2 count = `9`, images = `8` with `0` missing alt.
+- Tutorials hub: `https://feigen8n.online/tutorials/` → H2 count = `0`, images = `0`, JSON-LD schema = `false`.
 
-## Title + meta recommendations
-- Keep separate intent between the kit page and product page to reduce duplication, because both currently share the same title and description theme.
-- Suggested title pattern (choose one per page):
-  - Kit page: “STM32 Self-Balancing Car Kit — Setup + PID Tuning Starter Kit”
-  - Product page: “STM32 Self-Balancing Car Kit — PID, IMU, Encoders, App Control”
-- Reduce meta descriptions to exactly one per page and make them distinct; mention only audited features (PID, IMU attitude sensing, encoder feedback, app control, ultrasonic module, learning materials).
+## Title + meta recommendations (safe wording)
+- Separate intent between kit vs product pages to reduce duplication.
+- Ensure each page renders exactly one meta description tag.
+- Meta description copy should avoid exact “box contents” claims unless the listing on that page explicitly guarantees them; use “features you can explore” framing instead.
+  - Examples of safe topics (if the page copy supports them): PID tuning, IMU-based tilt sensing, encoder feedback, optional app/remote control (varies by listing).
 
-## H1/H2 guidance
-- Keep a single H1 (“STM32 Self-Balancing Car Kit”) and add 2–3 new H2 sections aligned to the focus topic:
-  - “Setup Checklist (First Power-On)”
-  - “IMU Orientation + Calibration Notes”
-  - “PID Calibration Checklist (Stability → Response → Drift)”
-- Add one internal link block: “Build guide: `/tutorials/stm32-self-balancing-car-setup/`” (only after the tutorial exists as a draft).
+## On-page structure recommendations
+- Keep one H1, then add 2–3 H2 sections aligned to search intent:
+  - “First Power-On Checklist”
+  - “IMU Orientation and Sign Checks”
+  - “PID Tuning Workflow (P → D → I)”
+- Add one internal link block to the tutorial once published: `/tutorials/stm32-self-balancing-car-setup/` (do not link early if it would 404).
 
-## FAQ ideas (safe, audit-aligned)
-- “What should I verify before the first power-on?”
-- “How do I approach PID tuning for a two-wheel balancing robot?”
-- “What are common IMU mounting or orientation mistakes to check?”
-- “How do encoders help stability and speed control?”
-- “What does the ultrasonic module enable in this kit?”
-- “What is included in the kit, and what is not included?”
+## FAQ ideas (avoid unverified kit contents)
+- “What should I verify before first power-on?”
+- “How do I check IMU orientation and sign?”
+- “How do encoders help with stability and drift control?”
+- “What should I do if the robot runs away immediately?”
+- “Which parts vary by seller/listing, and how do I confirm mine?”
 
-## Schema recommendations
-- Add JSON-LD on kit/product pages (currently absent): `Product` (price, sale price, availability), plus optional `FAQPage` if FAQ is added, and `BreadcrumbList` if breadcrumbs exist on the site.
+## Schema recommendations (audit gap)
+- Add JSON-LD where missing: `Product` (use listing-backed fields only), plus optional `FAQPage` if FAQs are added, and `BreadcrumbList` if breadcrumbs exist.
 
-## Publishing risks
-- Duplicate meta description tags (`count = 2`) can cause inconsistent snippets.
-- Near-duplicate title/positioning between kit vs product pages can dilute relevance and split ranking signals.
-- Adding a tutorial link before the tutorial is published can create broken internal links.
+## Publishing risks (audit-based)
+- Duplicate meta descriptions can cause inconsistent snippets.
+- Kit vs product page duplication can blur intent.
+- Broken internal links if tutorial URLs are added before publish.
