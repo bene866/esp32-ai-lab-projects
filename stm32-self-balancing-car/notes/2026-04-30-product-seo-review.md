@@ -1,48 +1,35 @@
-# Product SEO Review - STM32 Self-Balancing Car Kit - 2026-04-30
+# Product SEO Review — STM32 Self-Balancing Car Kit — 2026-04-30
 
-Status: draft recommendation, not applied
+## Current-page observations (from provided audit)
+- Kit page: `https://feigen8n.online/kits/stm32-self-balancing-car-kit/` → `200 OK`, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`.
+- Product page: `https://feigen8n.online/product/stm32-self-balancing-car-kit/` → `200 OK`, meta description count = `2`, canonical count = `1`, JSON-LD schema = `false`, title matches kit page.
+- Both kit/product pages: H1 present (“STM32 Self-Balancing Car Kit”), H2 count = `9`, images = `8` with `0` missing alt.
+- Tutorials hub: `https://feigen8n.online/tutorials/` → H2 count = `0`, images = `0`, JSON-LD schema = `false`.
 
-## Current Page
-- Kit URL: https://feigen8n.online/kits/stm32-self-balancing-car-kit/
-- Product URL / redirect check: https://feigen8n.online/product/stm32-self-balancing-car-kit/
-- Current title: STM32 Self-Balancing Car Kit | PID Control Robotics Project
-- Meta description count: 2
-- Canonical count: 1
-- H1 count: 1
-- H2 sample: Order This Kit, What You Can Explore, What’s Included, Key Features, Product Photo, Gallery, Notes / Disclaimer, Shipping & Quote
-- Images: 8
-- Missing alt count: 0
-- JSON-LD schema: missing
+## Title + meta recommendations (safe wording)
+- Separate intent between kit vs product pages to reduce duplication.
+- Ensure each page renders exactly one meta description tag.
+- Meta description copy should avoid exact “box contents” claims unless the listing on that page explicitly guarantees them; use “features you can explore” framing instead.
+  - Examples of safe topics (if the page copy supports them): PID tuning, IMU-based tilt sensing, encoder feedback, optional app/remote control (varies by listing).
 
-## SEO Template To Apply After Review
-### SEO Title
-STM32 Self-Balancing Car Kit | Practical DIY Kit, Setup Guide & Demo Notes
+## On-page structure recommendations
+- Keep one H1, then add 2–3 H2 sections aligned to search intent:
+  - “First Power-On Checklist”
+  - “IMU Orientation and Sign Checks”
+  - “PID Tuning Workflow (P → D → I)”
+- Add one internal link block to the tutorial once published: `/tutorials/stm32-self-balancing-car-setup/` (do not link early if it would 404).
 
-### Meta Description
-Learn what the STM32 Self-Balancing Car Kit includes, what you can build, setup notes, package/version differences, and related tutorials before ordering.
+## FAQ ideas (avoid unverified kit contents)
+- “What should I verify before first power-on?”
+- “How do I check IMU orientation and sign?”
+- “How do encoders help with stability and drift control?”
+- “What should I do if the robot runs away immediately?”
+- “Which parts vary by seller/listing, and how do I confirm mine?”
 
-### H1
-STM32 Self-Balancing Car Kit
+## Schema recommendations (audit gap)
+- Add JSON-LD where missing: `Product` (use listing-backed fields only), plus optional `FAQPage` if FAQs are added, and `BreadcrumbList` if breadcrumbs exist.
 
-### Recommended H2 Sections
-- What You Can Build
-- What's Included
-- Setup Notes
-- Package / Version Differences
-- FAQ
-
-### FAQ Draft
-- What does this kit include?
-- Is it suitable for beginners?
-- Does it include demo code or learning materials?
-- Which related tutorial should I read first?
-
-### Internal Links To Add
-- Link from the product/kit page to the new tutorial draft.
-- Link from the tutorial draft back to the kit page.
-- Link from Projects to this kit when the project appears in the demo list.
-- Link to one adjacent kit where comparison is useful, not forced.
-
-### GitHub Link
-Add only after the corresponding GitHub README is created and reviewed:
-`https://github.com/<account>/esp32-ai-lab-projects/tree/main/stm32-self-balancing-car`
+## Publishing risks (audit-based)
+- Duplicate meta descriptions can cause inconsistent snippets.
+- Kit vs product page duplication can blur intent.
+- Broken internal links if tutorial URLs are added before publish.
