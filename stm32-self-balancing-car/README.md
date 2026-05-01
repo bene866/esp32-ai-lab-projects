@@ -1,34 +1,50 @@
-# STM32 Self-Balancing Car — Setup & PID Calibration Checklist (Verify-On-Your-Build)
+# STM32 Self‑Balancing Car — Bring‑Up & PID Calibration Checklist (Verify on Your Build)
 
-This repository is a technical, checklist-style bring-up guide for a **two-wheel STM32 self-balancing robot car** build that uses **IMU attitude sensing**, **encoder motor feedback**, and **PID control**. The goal is to help you move from “assembled hardware” to a repeatable baseline where you can **verify wiring + sensor signals**, confirm **motor/encoder direction**, and then perform **safe, incremental PID tuning**.
+This repository is a technical, checklist‑style bring‑up guide for a **two‑wheel STM32 self‑balancing robot car** build that typically involves an **IMU for attitude sensing**, **encoders for wheel feedback**, and **PID control loops**. The purpose is to help you move from “assembled hardware” to a repeatable baseline where you can **validate wiring and sensor signals**, confirm **motor/encoder direction**, and then run **safe, incremental tuning**.
 
-Kit contents, wiring, and firmware steps vary by seller and revision—treat each step as **passed only after you confirm it on your own hardware**.
-
----
-
-## Project purpose
-
-A balancing robot is unforgiving: one swapped motor lead, an inverted IMU axis, or encoder polarity mismatch can turn “PID tuning” into random thrashing. This repo focuses on:
-
-- Establishing a **known-good electrical baseline** (power, grounds, connectors, polarity).
-- Verifying **IMU data sanity** (axes, signs, noise, mounting orientation).
-- Verifying **encoder feedback sanity** (counts change, sign, symmetry left/right).
-- Confirming **motor direction mapping** (commanded direction matches physical wheel direction).
-- Providing a **structured PID tuning path** that starts with conservative limits and observable tests.
+Because self‑balancing platforms are sold in many revisions (and are often re‑labeled or substituted by sellers), treat every step here as **passed only after you confirm it on your own kit**. If something in your build differs (board variant, IMU model, pinout, motor driver, encoder wiring), adjust the checks accordingly.
 
 ---
 
-## Validation status (read this first)
+## What this repo is (and is not)
 
-- **Hardware validation:** Not claimed. This repo does **not** assert that any specific kit revision has been tested end-to-end.
-- **What is validated here:** The logic of the checklist format and the “verify-on-your-build” workflow approach.
-- **Your responsibility:** Confirm every measurement (voltage, polarity, sensor sign, wheel direction) on your own bench before progressing.
+**This repo is:**
+- A practical **bring‑up sequence** that prioritizes safety and observability.
+- A set of **pass/fail checks** to catch common sign, axis, and wiring mistakes before tuning.
+- A suggested way to organize docs, logs, and per‑build notes for reproducible iteration.
+
+**This repo is not:**
+- A claim that any specific kit revision is “supported” or verified end‑to‑end.
+- A guarantee of exact parts, pin mappings, or performance on your hardware.
+- A replacement for the documentation of your specific controller board, IMU, or motor driver.
 
 ---
 
-## Recommended repository structure
+## Quick start (recommended reading order)
 
-This README is designed to work even if your local copy has a different layout. If you want a predictable structure for collaboration and pull requests, use this target layout:
+If your repository includes these files, this sequence keeps troubleshooting focused:
+
+1) `docs/setup-checklist.md` — overall bring‑up flow (power → sensors → motors → control readiness)  
+2) `docs/imu-verification.md` — axis/sign sanity checks and tilt tests  
+3) `docs/motor-encoder-verification.md` — direction mapping and encoder polarity  
+4) `docs/pid-tuning.md` — conservative tuning workflow and logging template  
+5) `docs/troubleshooting.md` — symptom → likely cause → next check  
+
+If those files don’t exist yet, this README still stands on its own; consider using the “Repository layout” section below as a target structure.
+
+---
+
+## Validation stance (read this first)
+
+- **Hardware validation:** Not claimed. No end‑to‑end hardware test coverage is asserted here.
+- **What’s “validated” in spirit:** The workflow style—measure first, control later; confirm signs; clamp outputs; iterate with logs.
+- **Your responsibility:** Verify voltages, polarity, sensor signs, and wheel direction on your bench before progressing.
+
+---
+
+## Recommended repository layout (optional, but makes collaboration easier)
+
+A predictable structure helps you keep bring‑up notes, troubleshooting findings, and tuning experiments reviewable:
 
 ```
 .
@@ -41,167 +57,177 @@ This README is designed to work even if your local copy has a different layout. 
 │   ├── pid-tuning.md
 │   └── troubleshooting.md
 ├── media/
-│   ├── photos/                # real build photos (add yours)
-│   ├── videos/                # demo clips (add yours)
-│   └── logs/                  # UART/printf logs (add yours)
+│   ├── photos/                # add your build photos
+│   ├── videos/                # add your demo clips
+│   └── logs/                  # add your UART/printf logs
 └── templates/
     ├── build-log.md           # per-build record template
-    └── pid-notes.csv          # gains & results table template
+    └── pid-notes.csv          # gains & observations table
 ```
 
-If you do not plan to add files yet, keep the structure section anyway—it documents where future content should live.
+Keep any “media/” references strictly as **optional placeholders** until you actually add real files from your build.
 
 ---
 
-## Setup notes (bench-first, safe defaults)
+## Setup notes (bench first, safe defaults)
 
-**Workspace + tools**
-- Use a stable, non-conductive work surface and secure the chassis so wheels can spin freely.
-- Prepare a way to observe firmware output (for example, UART logs) and a way to reflash quickly.
-- Use conservative current limits on your bench supply if available, especially on first power-up.
+**Workspace**
+- Use a stable, non‑conductive surface.
+- Secure the chassis so the wheels can spin freely during early checks.
+- Have a reliable flash + debug path (and a quick way to disable motors).
 
 **Power & safety**
-- Never start with the robot standing upright. Begin with the wheels off the ground, then progress to a “supported balancing” test.
-- If your firmware supports it, enable a “motor disable” or “arming” step so you can read sensors without driving motors.
+- Start with wheels off the ground. Only move to floor tests after sensor and direction checks are clean.
+- If you have a bench supply, use conservative current limits for first power‑ups.
+- Prefer a firmware “arming” flow: read sensors first, then explicitly enable motor output.
 
-**Assumptions (do not over-assume)**
-- Your kit includes an STM32 controller board, an IMU, and encoder motors (as described on the kit/product pages).
-- Board pinouts, IMU model, motor driver type, and firmware configuration are **not assumed** here—verify your specific revision.
+**Assumptions (keep them minimal)**
+- Many kits of this type include: an STM32 control board (or STM32‑based module), an IMU module, motor drivers, and geared DC motors with encoders.
+- Exact **IMU model**, **pinout**, **driver topology**, and **firmware configuration** can vary—verify your specific revision.
 
 ---
 
-## Wiring + firmware verification checklist (pass/fail, one line per check)
+## Bring‑up checklist (pass/fail, one line per check)
 
-### 1) Power integrity (do this before flashing)
-- [ ] **Polarity check:** Battery/bench supply polarity matches board input markings.
-- [ ] **Ground integrity:** Common ground exists between controller, motor driver, and sensor modules.
-- [ ] **Regulators:** Logic supply rails are present and stable at idle (verify your expected voltage levels on your build).
-- [ ] **Brownout behavior:** Power-on does not repeatedly reset under no-load conditions.
+### 1) Power integrity (before flashing)
+- [ ] **Polarity:** Supply polarity matches the board input markings.
+- [ ] **Grounding:** Controller, motor driver, and sensors share a solid common ground.
+- [ ] **Rails present:** Logic rails are stable at idle (confirm the expected voltages for your board).
+- [ ] **No reset loop:** Power‑on is stable under no‑load conditions (no repeated brownout resets).
 
-### 2) IMU bring-up (sensor sanity before control)
-With the robot stationary on the bench:
-- [ ] **Static accelerometer sanity:** One axis magnitude is dominant when resting; values change predictably when you tilt the chassis.
-- [ ] **Gyro zero-rate:** Gyro readings are near a stable baseline when not moving (expect some noise/drift; look for “obviously wrong” offsets).
-- [ ] **Axis orientation:** Tilting forward/backward produces a consistent sign change on the pitch-related signal you use for balancing.
-- [ ] **Mounting stability:** IMU board is mechanically secure; no loose tape-only mounting for final tuning.
-- [ ] **Filter behavior:** If filtering is enabled, it reduces noise without adding seconds of lag (verify by quick tilt and release).
+If any item fails, stop and fix power integrity before involving motors or control loops.
+
+### 2) IMU bring‑up (sensor sanity before control)
+With the robot stationary:
+- [ ] **Accelerometer sanity:** Gravity is dominant on one axis at rest; readings change predictably when you tilt.
+- [ ] **Gyro baseline:** Gyro is near a stable baseline when not moving (some noise/drift is normal; look for obviously wrong offsets).
+- [ ] **Axis mapping:** Tilting forward/back changes the sign of the pitch‑related signal you intend to use for balancing.
+- [ ] **Mounting is rigid:** The IMU is mechanically secured (avoid loose mounting during tuning).
+- [ ] **Filtering feels reasonable:** If filters are enabled, noise reduces without multi‑second lag (verify via quick tilt and release).
+
+If the IMU axes/signs are wrong, PID tuning will look random. Fix the coordinate/sign convention first.
 
 ### 3) Motor direction mapping (no balancing yet)
-With wheels off the ground and a very small command:
-- [ ] **Left motor forward:** “Forward” command spins the left wheel in your defined forward direction.
-- [ ] **Right motor forward:** “Forward” command spins the right wheel in the same forward direction.
-- [ ] **Symmetry:** Similar PWM produces similar wheel speed (roughly; exact match is not required yet).
-- [ ] **Stop behavior:** Zero command reliably stops both motors.
+With wheels off the ground and very small commands:
+- [ ] **Left forward:** “Forward” command spins the left wheel in your defined forward direction.
+- [ ] **Right forward:** “Forward” command spins the right wheel in the same forward direction.
+- [ ] **Basic symmetry:** Similar commands produce broadly similar wheel speeds (fine mismatch is OK at this stage).
+- [ ] **Stop is reliable:** Zero command stops both motors predictably.
 
-If any mapping is reversed, fix direction at the wiring or firmware abstraction layer before tuning PID.
+If any motor direction is inverted, decide where to fix it (wiring vs. firmware abstraction layer) and document it in `docs/wiring-notes.md`.
 
 ### 4) Encoder feedback (must match motor direction)
 Spin each wheel by hand:
-- [ ] **Counts change:** Encoder counts increment/decrement as the wheel rotates.
-- [ ] **Sign matches direction:** The sign of encoder delta matches the motor direction definition (forward wheel motion produces forward-positive feedback).
-- [ ] **No dropouts:** Counts do not randomly freeze or jump when rotating smoothly.
-- [ ] **Left/right consistency:** The same physical motion yields comparable magnitude on both sides.
+- [ ] **Counts change:** Encoder counts update when the wheel rotates.
+- [ ] **Sign matches direction:** Forward wheel motion produces forward‑positive encoder delta (per your definition).
+- [ ] **No dropouts:** Counts don’t freeze, jump wildly, or intermittently disappear during smooth rotation.
+- [ ] **Left/right consistency:** Similar physical motion yields comparable magnitude on both sides.
 
-A balancing controller that uses velocity feedback will behave badly if encoder polarity is wrong.
+Encoder polarity errors often masquerade as “bad tuning.” Re‑check encoder sign any time you change wiring or swap motor leads.
 
 ### 5) Control loop readiness (still not balancing)
-- [ ] **Timing stability:** Control loop runs at a stable period (verify with logs/timestamps if available).
-- [ ] **Saturation limits:** Motor output is clamped to a safe maximum during early tests.
-- [ ] **Fail-safe:** If IMU data becomes invalid, motors are disabled (or safely ramped down).
+- [ ] **Timing stability:** Control loop period is stable (verify via logs/timestamps if available).
+- [ ] **Output clamped:** Motor output is limited to a safe maximum during early tests.
+- [ ] **Failsafe behavior:** If IMU data is invalid or out of range, motors disable or ramp down safely.
+- [ ] **Disable path works:** You can reliably stop motors immediately (software and/or hardware).
+
+Only proceed to closed‑loop tests when these safety checks pass.
 
 ---
 
 ## PID tuning workflow (incremental, observable, reversible)
 
-This section describes a safe tuning order and what “good” looks like. It does not assume a specific firmware implementation.
+This is a safe, implementation‑agnostic tuning order. Adapt the details to your firmware architecture.
 
-### Step A — Define your signals and signs
-Before changing gains, write down:
-- The angle signal used for balance (for example, pitch estimate).
-- The sign convention for “lean forward” and “wheel forward”.
-- The direction the controller should drive the wheels when the robot leans.
+### Step A — Define signals and sign conventions
+Write down (in a build log):
+- What you consider **positive pitch** (lean direction).
+- What you consider **forward wheel motion**.
+- What the controller should do when the robot leans (which wheel direction should bring it back under the center of mass).
 
-Then do a **manual tilt test** with wheels off the ground:
-- Gently tilt the robot forward; confirm the controller would command wheel motion that would move under the center of mass (verify on your build).
+Then do a **manual tilt test with wheels off the ground**:
+- Tilt forward slightly and observe whether the commanded motor direction would “drive under” the robot (based on your sign convention and logs/telemetry).
 
-If the sign is wrong, no PID value will fix it.
+If the sign is wrong, PID values cannot fix it—correct signs first.
 
 ### Step B — Start with conservative limits
-- Set motor output limits low enough that the robot cannot launch off the bench.
-- Prefer ramping outputs rather than step changes if your firmware supports it.
+- Keep motor output limits low enough that the robot cannot launch off the bench.
+- Prefer output ramps over steps if your firmware supports it.
+- Keep an easy “disable motors” mechanism at hand during every test.
 
 ### Step C — Tune the balance (angle) loop first
-Goal: get a “stiff but not violent” response.
+Goal: responsive correction without sustained oscillation.
 - Increase **P** gradually until the robot attempts to correct tilt promptly.
-- Add a small **D** to reduce overshoot and oscillation.
-- Keep **I** at zero or very small initially to avoid slow wind-up that causes surprise runaways.
+- Add a small **D** to reduce overshoot and high‑frequency wobble.
+- Keep **I** at zero (or minimal) early to avoid slow wind‑up and surprises.
 
 Pass criteria (supported test):
-- When lightly supported, the robot pushes back toward upright without sustained oscillation.
+- When lightly supported, it pushes back toward upright without continuous oscillation.
 
-### Step D — Add velocity/position behavior (using encoders)
-Once angle control is stable:
-- Use encoder feedback to reduce drift and improve “stand-in-place” behavior.
-- Confirm encoder sign again after any refactor: a sign error here often looks like “it tries to balance while accelerating away”.
+### Step D — Add encoder‑based behavior (velocity/position)
+After angle control is stable:
+- Use encoder feedback to reduce drift and improve “stand in place” behavior.
+- Re‑confirm encoder sign after any refactor (a sign error often looks like “it tries to balance while accelerating away”).
 
 Pass criteria:
-- The robot does not continuously drive forward/backward while trying to balance (with support).
+- With support, it does not continuously accelerate forward/backward while attempting to balance.
 
-### Step E — Iterate with a build log
-Record every change:
-- Firmware version/config snapshot (whatever you can capture for your build).
-- Gain values.
-- Test condition (wheels off ground / supported / free-standing attempt).
-- Observed behavior (oscillation frequency, direction, any saturation).
+### Step E — Log every change
+Use a build log (`templates/build-log.md`) and record:
+- Firmware configuration snapshot (whatever you can capture on your build).
+- Gain values and output limits.
+- Test condition (wheels off ground / supported / cautious floor attempt).
+- Observed behavior (oscillation, saturation, direction of drift).
 
-This makes tuning reviewable and reproducible.
+This turns tuning into an evidence‑based process instead of guesswork.
 
 ---
 
 ## Troubleshooting (symptom → likely cause → next check)
 
-**Symptom: immediate full-speed spin on enable**
+**Symptom: immediate full‑speed output on enable**
 - Likely cause: IMU angle sign wrong, motor direction mapping wrong, or output not clamped.
-- Next check: disable motors; verify IMU sign with a manual tilt; confirm output clamp.
+- Next check: disable motors; confirm IMU sign with manual tilt; confirm output clamp path.
 
-**Symptom: violent oscillation around upright**
-- Likely cause: P too high, D too low, or control loop timing unstable.
-- Next check: reduce P; increase D slightly; verify loop period stability.
+**Symptom: violent oscillation near upright**
+- Likely cause: P too high, D too low, sensor noise too high, or timing jitter.
+- Next check: reduce P; add D gradually; verify loop period stability and sensor filtering.
 
 **Symptom: balances briefly but drifts and accelerates away**
 - Likely cause: encoder sign mismatch, velocity loop too aggressive, or unhandled bias.
-- Next check: verify encoder polarity with hand spin; reduce velocity-related gains; check sensor bias handling.
+- Next check: verify encoder polarity by hand spin; reduce velocity/position gains; inspect bias/offset handling.
 
 **Symptom: one wheel consistently fights the other**
-- Likely cause: left/right motor mapping mismatch, encoder channel swap, mechanical friction mismatch.
-- Next check: confirm left/right directions; compare encoder deltas at equal command; check for binding.
+- Likely cause: left/right mapping mismatch, encoder channel swap, mechanical friction mismatch.
+- Next check: confirm left/right direction conventions; compare encoder deltas at equal command; inspect binding.
 
 **Symptom: works on bench, fails on floor**
-- Likely cause: insufficient torque/current, wheel slip, different friction/loading, or output saturation.
-- Next check: inspect saturation; verify power delivery under load; confirm mechanical alignment and wheel traction.
+- Likely cause: torque/current limits, wheel slip, different friction/loading, or saturation.
+- Next check: inspect saturation during floor attempts; validate power delivery under load; check alignment and traction.
 
 ---
 
-## Demo media placeholders (add real files when you have them)
+## Optional “media/” checklist (add only what you actually captured)
 
-- `media/photos/bench-overview.jpg` — full kit bench photo (your build)
-- `media/photos/imu-mount-closeup.jpg` — IMU mounting orientation reference (your build)
-- `media/videos/first-balance-supported.mp4` — supported balancing clip (your build)
-- `media/videos/free-standing-attempt.mp4` — short free-standing attempt (your build)
-- `media/logs/control-loop-uart.txt` — UART log snippet showing loop timing and sensor readouts (your build)
+If you choose to document your build, these are useful artifacts:
+- `media/photos/` — wiring overview, IMU mounting orientation, controller board close‑ups  
+- `media/videos/` — supported balancing attempt, short cautious floor attempt  
+- `media/logs/` — UART logs that include loop timing and sensor snapshots  
 
-Do not treat placeholders as proof of validation; only add files that you actually captured.
-
----
-
-## Official references
-
-- STM32Cube documentation (STM32CubeIDE): https://www.st.com/en/development-tools/stm32cubeide.html  
-- ST motor control resources: https://www.st.com/content/st_com/en/ecosystems/stm32-motor-control-ecosystem.html  
+Treat these as **documentation aids**, not as proof of universal compatibility.
 
 ---
 
-## Related (product + tutorial)
+## Official references (authoritative starting points)
+
+- STM32CubeIDE (ST official): https://www.st.com/en/development-tools/stm32cubeide.html  
+- ST motor control ecosystem overview (ST official): https://www.st.com/content/st_com/en/ecosystems/stm32-motor-control-ecosystem.html  
+
+---
+
+## Related links (kit, product, tutorial)
+
+These pages may provide your baseline specs and revision notes—verify what you received matches what’s described:
 
 - Kit page: https://feigen8n.online/kits/stm32-self-balancing-car-kit/  
 - Product page: https://feigen8n.online/product/stm32-self-balancing-car-kit/  
